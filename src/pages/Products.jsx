@@ -61,11 +61,11 @@ export default function Products() {
   ]
 
   return (
-    <div className="bg-brand-dark min-h-screen py-20 font-body">
+    <div className="bg-white dark:bg-brand-dark transition-colors min-h-screen py-20 font-body">
       <div className="max-w-7xl mx-auto px-6">
         <header className="mb-16 animate-fade-up opacity-0" style={{ animationDelay: '0.1s' }}>
-          <h1 className="font-display text-6xl md:text-7xl text-white uppercase mb-4">Product Catalogue</h1>
-          <p className="text-brand-muted text-lg max-w-2xl">Browse our high-performance manufacturing catalogue engineered for precision.</p>
+          <h1 className="font-display text-6xl md:text-7xl text-gray-900 dark:text-white uppercase mb-4">Product Catalogue</h1>
+          <p className="text-gray-600 dark:text-brand-muted text-lg max-w-2xl">Browse our high-performance manufacturing catalogue engineered for precision.</p>
         </header>
 
         <div className="flex flex-col lg:flex-row gap-12 items-start">
@@ -74,27 +74,27 @@ export default function Products() {
           <aside className="w-full lg:w-1/4 sticky top-28 flex flex-col gap-8 animate-fade-up opacity-0" style={{ animationDelay: '0.2s' }}>
             
             <div className="flex flex-col gap-2">
-              <label className="font-mono text-xs text-brand-muted uppercase tracking-widest pl-1">Search Products</label>
+              <label className="font-mono text-xs text-gray-600 dark:text-brand-muted uppercase tracking-widest pl-1">Search Products</label>
               <div className="relative">
-                <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-brand-muted" />
+                <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-brand-muted" />
                 <input 
                   type="text" 
                   placeholder="e.g. Bimetallic Screw..." 
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-brand-steel border border-brand-border rounded-lg pl-10 pr-4 py-3 text-brand-light placeholder:text-brand-muted/50 focus:outline-none focus:border-brand-accent transition-colors"
+                  className="w-full bg-gray-50 dark:bg-brand-steel border border-gray-200 dark:border-brand-border rounded-lg pl-10 pr-4 py-3 text-gray-900 dark:text-brand-light placeholder:text-gray-400 dark:placeholder:text-brand-muted/50 focus:outline-none focus:border-brand-accent transition-colors"
                 />
               </div>
             </div>
 
             <div className="flex flex-col gap-3">
-              <label className="font-mono text-xs text-brand-muted uppercase tracking-widest pl-1">Machine Type</label>
+              <label className="font-mono text-xs text-gray-600 dark:text-brand-muted uppercase tracking-widest pl-1">Machine Type</label>
               <div className="flex flex-col gap-2">
                 {machineTabs.map(tab => (
                   <button 
                     key={tab.id}
                     onClick={() => setMachineFilter(tab.id)}
-                    className={`text-left px-4 py-2 rounded-lg font-mono text-sm transition-all duration-200 border ${machineFilter === tab.id ? 'bg-brand-accent/10 border-brand-accent text-brand-accent shadow-sm shadow-brand-accent/10' : 'bg-transparent border-transparent text-brand-muted hover:bg-brand-steel hover:text-brand-light'}`}
+                    className={`text-left px-4 py-2 rounded-lg font-mono text-sm transition-all duration-200 border ${machineFilter === tab.id ? 'bg-brand-accent/10 border-brand-accent text-brand-accent shadow-sm shadow-brand-accent/10' : 'bg-transparent border-transparent text-gray-600 dark:text-brand-muted hover:bg-gray-100 dark:hover:bg-brand-steel hover:text-gray-900 dark:hover:text-brand-light'}`}
                   >
                     {tab.label}
                   </button>
@@ -103,13 +103,13 @@ export default function Products() {
             </div>
 
             <div className="flex flex-col gap-3">
-              <label className="font-mono text-xs text-brand-muted uppercase tracking-widest pl-1">Component Type</label>
+              <label className="font-mono text-xs text-gray-600 dark:text-brand-muted uppercase tracking-widest pl-1">Component Type</label>
               <div className="flex flex-wrap gap-2">
                 {typeTabs.map(tab => (
                   <button 
                     key={tab.id}
                     onClick={() => setTypeFilter(tab.id)}
-                    className={`px-4 py-2 rounded-full font-mono text-xs uppercase tracking-wider transition-all duration-200 border ${typeFilter === tab.id ? 'bg-brand-accent text-brand-dark border-brand-accent font-semibold' : 'bg-brand-steel/50 border-brand-border text-brand-muted hover:border-brand-accent/50'}`}
+                    className={`px-4 py-2 rounded-full font-mono text-xs uppercase tracking-wider transition-all duration-200 border ${typeFilter === tab.id ? 'bg-brand-accent text-brand-dark border-brand-accent font-semibold' : 'bg-gray-100 dark:bg-brand-steel/50 border-gray-200 dark:border-brand-border text-gray-600 dark:text-brand-muted hover:border-brand-accent/50'}`}
                   >
                     {tab.label}
                   </button>
@@ -124,7 +124,7 @@ export default function Products() {
             {loading ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[1,2,3,4,5,6].map(n => (
-                  <div key={n} className="bg-brand-card rounded-xl h-[400px] animate-pulse border border-brand-border"></div>
+                  <div key={n} className="bg-gray-50 dark:bg-brand-card rounded-xl h-[400px] animate-pulse border border-gray-200 dark:border-brand-border"></div>
                 ))}
               </div>
             ) : products.length > 0 ? (
@@ -134,11 +134,11 @@ export default function Products() {
                 ))}
               </div>
             ) : (
-              <div className="bg-brand-card border border-brand-border border-dashed rounded-xl p-16 text-center flex flex-col items-center justify-center">
-                <Search size={48} className="text-brand-muted opacity-50 mb-6" />
-                <h2 className="font-display text-4xl text-brand-light mb-2">No Products Found</h2>
-                <p className="text-brand-muted mb-8 max-w-md">We couldn't find any products matching your current filters. Try adjusting your parameters.</p>
-                <button onClick={() => { setMachineFilter('all'); setTypeFilter('all'); setSearchQuery(''); }} className="border border-brand-border text-brand-light px-6 py-3 rounded-lg hover:border-brand-accent hover:text-brand-accent transition-all duration-200 uppercase tracking-widest text-xs font-mono font-semibold">
+              <div className="bg-gray-50 dark:bg-brand-card border border-gray-200 dark:border-brand-border border-dashed rounded-xl p-16 text-center flex flex-col items-center justify-center">
+                <Search size={48} className="text-gray-400 dark:text-brand-muted opacity-50 mb-6" />
+                <h2 className="font-display text-4xl text-gray-900 dark:text-brand-light mb-2">No Products Found</h2>
+                <p className="text-gray-600 dark:text-brand-muted mb-8 max-w-md">We couldn't find any products matching your current filters. Try adjusting your parameters.</p>
+                <button onClick={() => { setMachineFilter('all'); setTypeFilter('all'); setSearchQuery(''); }} className="border border-gray-300 dark:border-brand-border text-gray-900 dark:text-brand-light px-6 py-3 rounded-lg hover:border-brand-accent hover:text-brand-accent dark:hover:border-brand-accent dark:hover:text-brand-accent transition-all duration-200 uppercase tracking-widest text-xs font-mono font-semibold">
                   Clear All Filters
                 </button>
               </div>

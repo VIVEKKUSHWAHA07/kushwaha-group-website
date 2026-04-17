@@ -4,22 +4,22 @@ import { Settings2, Layers, Ruler, Cpu } from 'lucide-react'
 
 export default function Capabilities() {
   return (
-    <div className="bg-brand-dark min-h-screen font-body pb-24">
+    <div className="bg-white dark:bg-brand-dark transition-colors min-h-screen font-body pb-24">
       
       {/* Header */}
-      <header className="bg-brand-steel border-b border-brand-border py-24 text-center px-6">
-        <h1 className="font-display text-6xl md:text-7xl text-white uppercase mb-6">Manufacturing Capabilities</h1>
-        <p className="text-brand-muted text-xl uppercase tracking-widest font-mono">Engineered to precise specifications</p>
+      <header className="bg-gray-50 dark:bg-brand-steel border-b border-gray-200 dark:border-brand-border py-24 text-center px-6 transition-colors">
+        <h1 className="font-display text-6xl md:text-7xl text-gray-900 dark:text-white uppercase mb-6">Manufacturing Capabilities</h1>
+        <p className="text-gray-600 dark:text-brand-muted text-xl uppercase tracking-widest font-mono">Engineered to precise specifications</p>
       </header>
 
       {/* Stats Strip */}
-      <section className="bg-brand-card py-16 border-b border-brand-border">
+      <section className="bg-white dark:bg-brand-card py-16 border-b border-gray-200 dark:border-brand-border transition-colors">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-brand-border/50">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-gray-200 dark:divide-brand-border/50">
             {CAPABILITY_STATS.map((stat, i) => (
               <div key={i} className="flex flex-col items-center justify-center text-center px-4">
                 <div className="font-display text-4xl lg:text-5xl text-brand-accent mb-2">{stat.value}</div>
-                <div className="font-mono text-[10px] sm:text-xs text-brand-light uppercase tracking-widest">{stat.label}</div>
+                <div className="font-mono text-[10px] sm:text-xs text-gray-600 dark:text-brand-light uppercase tracking-widest">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -30,36 +30,36 @@ export default function Capabilities() {
       <section className="max-w-7xl mx-auto px-6 mt-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
           
-          <div className="bg-brand-card border border-brand-border rounded-xl p-8 hover:border-brand-accent/50 transition-colors">
-            <Settings2 size={40} className="text-brand-muted mb-6" />
-            <h2 className="font-display text-3xl text-white uppercase border-b border-brand-border pb-4 mb-6">Screw Profiles</h2>
+          <div className="bg-gray-50 dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-8 hover:border-brand-accent dark:hover:border-brand-accent/50 transition-colors">
+            <Settings2 size={40} className="text-gray-400 dark:text-brand-muted mb-6" />
+            <h2 className="font-display text-3xl text-gray-900 dark:text-white uppercase border-b border-gray-200 dark:border-brand-border pb-4 mb-6">Screw Profiles</h2>
             <ul className="space-y-4">
               {['General Purpose Screws', 'Barrier Screws', 'Mixing Elements (Maddock, Pineapple)', 'Vented & Degassing Screws', 'High-Compression Geometries', 'Varying Pitch Designs'].map((i, idx) => (
-                <li key={idx} className="flex items-start gap-3 text-brand-muted">
+                <li key={idx} className="flex items-start gap-3 text-gray-600 dark:text-brand-muted">
                   <span className="text-brand-accent mt-1">▹</span> {i}
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="bg-brand-card border border-brand-border rounded-xl p-8 hover:border-brand-accent/50 transition-colors">
-             <Layers size={40} className="text-brand-muted mb-6" />
-             <h2 className="font-display text-3xl text-white uppercase border-b border-brand-border pb-4 mb-6">Barrel Options</h2>
+          <div className="bg-gray-50 dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-8 hover:border-brand-accent dark:hover:border-brand-accent/50 transition-colors">
+             <Layers size={40} className="text-gray-400 dark:text-brand-muted mb-6" />
+             <h2 className="font-display text-3xl text-gray-900 dark:text-white uppercase border-b border-gray-200 dark:border-brand-border pb-4 mb-6">Barrel Options</h2>
              <ul className="space-y-4">
                {['Standard Nitrided Barrels', 'Bimetallic (Tungsten Carbide) Barrels', 'Grooved Feed Barrels', 'Twin Screw Barrels (Parallel/Conical)', 'Vented Barrels', 'Water/Oil Cooled Barrels'].map((i, idx) => (
-                 <li key={idx} className="flex items-start gap-3 text-brand-muted">
+                 <li key={idx} className="flex items-start gap-3 text-gray-600 dark:text-brand-muted">
                    <span className="text-brand-accent mt-1">▹</span> {i}
                  </li>
                ))}
              </ul>
           </div>
 
-          <div className="bg-brand-card border border-brand-border rounded-xl p-8 hover:border-brand-accent/50 transition-colors">
-            <Ruler size={40} className="text-brand-muted mb-6" />
-            <h2 className="font-display text-3xl text-white uppercase border-b border-brand-border pb-4 mb-6">Materials</h2>
+          <div className="bg-gray-50 dark:bg-brand-card border border-gray-200 dark:border-brand-border rounded-xl p-8 hover:border-brand-accent dark:hover:border-brand-accent/50 transition-colors">
+            <Ruler size={40} className="text-gray-400 dark:text-brand-muted mb-6" />
+            <h2 className="font-display text-3xl text-gray-900 dark:text-white uppercase border-b border-gray-200 dark:border-brand-border pb-4 mb-6">Materials</h2>
             <ul className="space-y-4">
               {['EN41B (Musco) Nitriding Steel', 'DIN 1.8550 High Alloy Steel', 'H13 Tool Steel', 'Stainless Steel (304, 316, 410)', 'Colmonoy & Stellite Hardfacing', 'Hastelloy / Inconel for Aggressive Resins'].map((i, idx) => (
-                <li key={idx} className="flex items-start gap-3 text-brand-muted">
+                <li key={idx} className="flex items-start gap-3 text-gray-600 dark:text-brand-muted">
                   <span className="text-brand-accent mt-1">▹</span> {i}
                 </li>
               ))}

@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { Menu, X, Phone } from 'lucide-react'
+import { Menu, X, Phone, Sun, Moon } from 'lucide-react'
 import { COMPANY } from '../lib/constants'
 import QuoteModal from './QuoteModal'
+import { useTheme } from '../context/ThemeContext'
 
 const navLinks = [
   { to: '/', label: 'Home' },
@@ -17,10 +18,11 @@ const navLinks = [
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [quoteOpen, setQuoteOpen] = useState(false)
+  const { theme, toggleTheme } = useTheme()
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full bg-brand-dark/90 backdrop-blur border-b border-brand-border">
+      <header className="sticky top-0 z-50 w-full bg-white/90 dark:bg-brand-dark/90 backdrop-blur border-b border-gray-200 dark:border-brand-border transition-colors">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
 
           {/* Brand */}
@@ -50,7 +52,14 @@ export default function Navbar() {
 
           {/* Right Side */}
           <div className="flex items-center gap-6">
-            <a href={`tel:${COMPANY.phone}`} className="hidden lg:flex items-center gap-2 text-sm text-brand-muted hover:text-brand-light transition-colors font-mono">
+            <button
+              onClick={toggleTheme}
+              className="p-2 text-gray-600 hover:text-brand-accent dark:text-brand-muted dark:hover:text-brand-accent transition-colors"
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+            <a href={`tel:${COMPANY.phone}`} className="hidden lg:flex items-center gap-2 text-sm text-gray-600 dark:text-brand-muted hover:text-gray-900 dark:hover:text-brand-light transition-colors font-mono">
               <Phone size={16} className="text-brand-accent" />
               {COMPANY.phone}
             </a>
@@ -63,7 +72,7 @@ export default function Navbar() {
             </button>
 
             <button 
-              className="md:hidden p-2 text-brand-light hover:text-brand-accent transition-colors" 
+              className="md:hidden p-2 text-gray-900 dark:text-brand-light hover:text-brand-accent transition-colors" 
               onClick={() => setMenuOpen(!menuOpen)}
             >
               {menuOpen ? <X size={28} /> : <Menu size={28} />}
@@ -73,7 +82,7 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         {menuOpen && (
-          <div className="md:hidden bg-brand-steel border-b border-brand-border animate-fade-in">
+          <div className="md:hidden bg-gray-50 dark:bg-brand-steel border-b border-gray-200 dark:border-brand-border animate-fade-in">
             <div className="flex flex-col px-6 py-4">
               {navLinks.map(link => (
                 <NavLink
@@ -81,7 +90,7 @@ export default function Navbar() {
                   to={link.to}
                   end={link.to === '/'}
                   className={({ isActive }) => 
-                    `py-4 border-b border-brand-border/50 text-lg transition-colors ${isActive ? 'text-brand-accent font-semibold' : 'text-brand-light hover:text-brand-accent'}`
+                    `py-4 border-b border-gray-200 dark:border-brand-border/50 text-lg transition-colors ${isActive ? 'text-brand-accent font-semibold' : 'text-gray-900 dark:text-brand-light hover:text-brand-accent'}`
                   }
                   onClick={() => setMenuOpen(false)}
                 >
