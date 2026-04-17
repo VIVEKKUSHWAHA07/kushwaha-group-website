@@ -1,4 +1,5 @@
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -11,19 +12,62 @@ serve(async (req) => {
   }
   try {
     const { clientName, companyName, email, phone,
-            productInterest, machineType, quantity, message } = await req.json();
-    const resendKey = Deno.env.get("RESEND_API_KEY");
+            productInterest, machineType, quantity, message, honeypot } = await req.json();
 
+    // Fix 2: Server-side honeypot validation
+    if (honeypot) {
+      // Silently catch bot submissions without revealing the trap
+      return new Response(JSON.stringify({ success: true }), { status: 200, headers: corsHeaders });
+    }
+
+    // Fix 1: Rate limiting using a rate_limits table
+    const ip = req.headers.get('x-forwarded-for') || 'unknown';
+    const supabaseUrl = Deno.env.get('SUPABASE_URL') || '';
+    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || '';
+
+    if (supabaseUrl && supabaseServiceKey) {
+      const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
+
+      // Clean up old entries (older than 24 hours)
+      const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+      await supabaseAdmin.from('rate_limits').delete().lt('created_at', oneDayAgo);
+
+      // Check rate limit for this IP (max 3 per hour)
+      const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+      const { data: recentRequests, error: rateLimitError } = await supabaseAdmin
+        .from('rate_limits')
+        .select('*')
+        .eq('ip', ip)
+        .gte('created_at', oneHourAgo);
+
+      if (!rateLimitError && recentRequests && recentRequests.length >= 3) {
+        return new Response(JSON.stringify({ error: 'Too many requests. Please try again later.' }), {
+          status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" }
+        });
+      }
+
+      // Insert new request to track limit
+      await supabaseAdmin.from('rate_limits').insert({ ip, created_at: new Date().toISOString() });
+    }
+
+    const resendKey = Deno.env.get("RESEND_API_KEY");
     if (!resendKey) {
       throw new Error("RESEND_API_KEY is not set in edge function secrets");
     }
 
+    // Fix 3: Move admin email to environment variable
+    const ADMIN_EMAIL = Deno.env.get('ADMIN_EMAIL');
+    if (!ADMIN_EMAIL) {
+      throw new Error('ADMIN_EMAIL environment variable not configured');
+    }
+
+    // 1. Send Admin Email Notification
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: { "Authorization": `Bearer ${resendKey}`, "Content-Type": "application/json" },
       body: JSON.stringify({
         from: "Kushwaha Group Website <onboarding@resend.dev>",
-        to: ["kushwahavivek6265@gmail.com"],
+        to: [ADMIN_EMAIL],
         subject: `New Quote Request - ${clientName} from ${companyName || "Unknown"}`,
         html: `<div style="font-family:Arial;max-width:600px;margin:auto;">
           <div style="background:#0A1628;padding:24px;border-radius:8px 8px 0 0;">
@@ -60,7 +104,34 @@ serve(async (req) => {
       throw new Error(`Resend error: ${JSON.stringify(resendData)}`);
     }
 
-    // NOTE: Auto-reply DISABLED - Resend free tier only sends to verified emails.
+    // Fix 4: Send Client Confirmation Email
+    try {
+      if (email) {
+        const referenceNumber = `KG-${Date.now().toString().slice(-6)}`;
+        await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: { "Authorization": `Bearer ${resendKey}`, "Content-Type": "application/json" },
+          body: JSON.stringify({
+            from: "Kushwaha Group <noreply@kushwahagroup.com>",
+            to: [email],
+            subject: "We received your enquiry — Kushwaha Group",
+            html: `<div style="font-family:Arial;max-width:600px;margin:auto;">
+              <p>Dear ${clientName},</p>
+              <p>Thank you for your enquiry regarding ${productInterest || "our products"}.</p>
+              <p><strong>Your Reference Number:</strong> ${referenceNumber}</p>
+              <p>Our engineering team will respond within 1-2 business days.</p>
+              <br/>
+              <p>Best regards,</p>
+              <p><strong>Kushwaha Group</strong><br/>
+              <a href="mailto:info@kushwahagroup.com">info@kushwahagroup.com</a></p>
+            </div>`,
+          }),
+        });
+      }
+    } catch (clientEmailError) {
+      console.error("Failed to send client confirmation email:", clientEmailError);
+    }
+
     return new Response(JSON.stringify({ success: true, id: resendData.id }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });

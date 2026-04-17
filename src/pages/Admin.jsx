@@ -1,3 +1,10 @@
+/**
+ * SECURITY NOTE — Supabase RLS Policies required for this admin panel:
+ * - quote_requests: anon INSERT only | authenticated full access
+ * - products: anon SELECT only | authenticated full access
+ * - product-images bucket: public read | authenticated write
+ * Verify these policies in Supabase Dashboard > Authentication > Policies
+ */
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
@@ -219,6 +226,9 @@ function ProductsManager() {
 
             <div className="bg-gray-50 dark:bg-brand-steel/50 p-6 rounded-lg border border-gray-200 dark:border-brand-border transition-colors">
               <label className="block text-gray-900 dark:text-white font-display text-lg mb-4">Specifications</label>
+              <p className="text-gray-500 dark:text-brand-muted text-xs font-mono mb-3">
+                Add custom key-value pairs for additional specs. Example: Key = "Flight Depth" → Value = "4mm". Leave blank rows — they will be ignored on save.
+              </p>
               <div className="space-y-3">
                 {specs.map((s, idx) => (
                   <div key={idx} className="flex flex-col sm:flex-row gap-3 items-center">
@@ -238,12 +248,12 @@ function ProductsManager() {
                  <label className="block text-xs font-mono uppercase tracking-wider text-gray-500 dark:text-brand-muted mb-2">Image Upload</label>
                  <input type="file" accept="image/*" className="w-full text-sm text-gray-600 dark:text-brand-muted file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-yellow-400 file:text-gray-900 hover:file:bg-yellow-500 cursor-pointer" onChange={e => setFile(e.target.files[0])}/>
                </div>
-               {existingImage && <img src={existingImage} className="h-16 w-16 object-cover rounded shadow border border-gray-200 dark:border-brand-border" alt="Current"/>}
+               {existingImage && <img src={existingImage} className="h-16 w-16 object-contain rounded shadow border border-gray-200 dark:border-brand-border bg-white dark:bg-brand-steel p-1" alt="Current"/>}
             </div>
 
             <label className="flex items-center gap-3 cursor-pointer w-fit p-2 rounded hover:bg-gray-50 dark:hover:bg-brand-steel/30 transition-colors">
-              <input type="checkbox" className="w-5 h-5 accent-yellow-400 rounded cursor-pointer" checked={formData.is_featured} onChange={e => setFormData({...formData, is_featured: e.target.checked})} />
-              <span className="text-gray-900 dark:text-white font-medium select-none">Feature on Homepage</span>
+               <input type="checkbox" className="w-5 h-5 accent-yellow-400 rounded cursor-pointer" checked={formData.is_featured} onChange={e => setFormData({...formData, is_featured: e.target.checked})} />
+               <span className="text-gray-900 dark:text-white font-medium select-none">Feature on Homepage</span>
             </label>
 
             <div className="flex gap-4 pt-4 border-t border-gray-200 dark:border-brand-border mt-2">
@@ -282,7 +292,7 @@ function ProductsManager() {
                   <tr key={p.id} className="hover:bg-gray-50 dark:hover:bg-brand-steel/30 transition-colors group">
                     <td className="p-4 pl-6">
                       {p.image_url ? 
-                        <img src={p.image_url} className="w-10 h-10 rounded object-cover shadow border border-gray-200 dark:border-brand-border" /> 
+                        <img src={p.image_url} className="w-10 h-10 rounded object-contain shadow border border-gray-200 dark:border-brand-border bg-white dark:bg-brand-steel p-0.5" /> 
                       : 
                         <div className="w-10 h-10 rounded bg-gray-100 dark:bg-brand-steel border border-gray-200 dark:border-brand-border flex items-center justify-center text-gray-400 dark:text-brand-muted"><ImageIcon size={16}/></div>
                       }
@@ -332,10 +342,11 @@ function QuoteRequestsManager() {
       'closed': 'pending'
     }
     const newStatus = statusCycle[currentStatus] || 'pending'
+    const statusUpdatedAt = new Date().toISOString()
     
     // Optimistic UI update
-    setQuotes(quotes.map(q => q.id === id ? { ...q, status: newStatus } : q))
-    await supabase.from('quote_requests').update({ status: newStatus }).eq('id', id)
+    setQuotes(quotes.map(q => q.id === id ? { ...q, status: newStatus, status_updated_at: statusUpdatedAt } : q))
+    await supabase.from('quote_requests').update({ status: newStatus, status_updated_at: statusUpdatedAt }).eq('id', id)
   }
 
   const renderStatusBadge = (id, status) => {
@@ -399,8 +410,13 @@ function QuoteRequestsManager() {
         {quotes.filter(q => q.message).map(q => (
           <div key={`msg-${q.id}`} className="bg-white dark:bg-brand-card p-5 rounded-lg border border-gray-200 dark:border-brand-border shadow-sm transition-colors">
             <div className="flex justify-between items-start mb-2">
-              <h3 className="font-semibold text-gray-900 dark:text-white">{q.client_name} <span className="font-normal text-xs text-gray-500 dark:text-brand-muted">({new Date(q.created_at).toLocaleDateString()})</span></h3>
-              {renderStatusBadge(q.id, q.status)}
+              <h3 className="font-semibold text-gray-900 dark:text-white">
+                {q.client_name} <span className="font-normal text-xs text-gray-500 dark:text-brand-muted">({new Date(q.created_at).toLocaleDateString()})</span>
+              </h3>
+              <div className="flex flex-col items-end gap-1">
+                {renderStatusBadge(q.id, q.status)}
+                {q.status_updated_at && <span className="text-[10px] text-gray-400 dark:text-brand-muted">Status updated: {new Date(q.status_updated_at).toLocaleDateString()}</span>}
+              </div>
             </div>
             <p className="text-gray-700 dark:text-brand-light text-sm leading-relaxed whitespace-pre-wrap">{q.message}</p>
           </div>
