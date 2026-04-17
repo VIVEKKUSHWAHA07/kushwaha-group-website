@@ -40,20 +40,14 @@ export default function Contact() {
       if (error) throw error
 
       setStatus({ type: 'success', message: 'Thank you! We have received your inquiry and will contact you within 24 hours.' })
-      
-      const edgeUrl = import.meta.env.VITE_EDGE_FUNCTION_URL
-      if (edgeUrl && edgeUrl !== 'placeholder_for_now') {
-        fetch(edgeUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            clientName: formData.client_name, companyName: formData.company_name,
-            email: formData.email, phone: formData.phone,
-            productInterest: formData.product_interest, machineType: formData.machine_type,
-            quantity: formData.quantity, message: formData.message,
-          })
-        }).catch(err => console.error('Edge function error:', err))
-      }
+      supabase.functions.invoke('send-quote-email', {
+        body: {
+          clientName: formData.client_name, companyName: formData.company_name,
+          email: formData.email, phone: formData.phone,
+          productInterest: formData.product_interest, machineType: formData.machine_type,
+          quantity: formData.quantity, message: formData.message,
+        }
+      }).catch(err => console.error('Edge function error:', err))
     } catch (err) {
       console.error(err)
       setStatus({ type: 'error', message: 'Something went wrong. Please try WhatsApp or call us directly.' })

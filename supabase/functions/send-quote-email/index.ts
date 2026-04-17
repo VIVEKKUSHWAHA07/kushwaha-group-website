@@ -14,7 +14,11 @@ serve(async (req) => {
             productInterest, machineType, quantity, message } = await req.json();
     const resendKey = Deno.env.get("RESEND_API_KEY");
 
-    await fetch("https://api.resend.com/emails", {
+    if (!resendKey) {
+      throw new Error("RESEND_API_KEY is not set in edge function secrets");
+    }
+
+    const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: { "Authorization": `Bearer ${resendKey}`, "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -48,11 +52,20 @@ serve(async (req) => {
           </div></div>`,
       }),
     });
+    
+    const resendData = await res.json();
+    console.log("Resend API response:", res.status, resendData);
+    
+    if (!res.ok) {
+      throw new Error(`Resend error: ${JSON.stringify(resendData)}`);
+    }
+
     // NOTE: Auto-reply DISABLED - Resend free tier only sends to verified emails.
-    return new Response(JSON.stringify({ success: true }), {
+    return new Response(JSON.stringify({ success: true, id: resendData.id }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (error) {
+    console.error("Error sending email:", error);
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
