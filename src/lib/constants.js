@@ -5,6 +5,7 @@ export const COMPANY = {
   whatsapp: '+919316278034',
   email: 'kushwahavivek6265@gmail.com',
   location: 'Ahmedabad, Gujarat, India',
+  address: 'Shade No 1, Panchratna Alpha Industrial Cottage, Ahmedabad, Gujarat, India',
   whatsappMsg: "Hello Kushwaha Group! 👋 I visited your website and I'm interested in your precision screw and barrel manufacturing services. Could we discuss my requirements?"
 }
 
