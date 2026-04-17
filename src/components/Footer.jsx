@@ -73,9 +73,14 @@ export default function Footer() {
 
         <div className="pt-8 border-t border-gray-300 dark:border-brand-border flex flex-col md:flex-row items-center justify-between gap-4 text-gray-600 dark:text-brand-muted text-sm content-center">
           <p>&copy; {COMPANY.footerYear} {COMPANY.name}. All Rights Reserved.</p>
-          <p className="font-mono text-xs uppercase tracking-widest text-brand-steel bg-brand-accent/90 px-3 py-1 rounded-sm shadow-sm inline-block font-semibold">
-            Powered by precision engineering
-          </p>
+          <div className="flex items-center gap-6">
+            <p className="font-mono text-xs uppercase tracking-widest text-brand-steel bg-brand-accent/90 px-3 py-1 rounded-sm shadow-sm inline-block font-semibold">
+              Powered by precision engineering
+            </p>
+            <Link to="/admin-login" className="text-xs text-gray-500 hover:text-yellow-400 transition-colors cursor-pointer">
+              Admin
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
