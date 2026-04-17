@@ -12,7 +12,9 @@ import Capabilities from './pages/Capabilities'
 import Quality from './pages/Quality'
 import Contact from './pages/Contact'
 import Admin from './pages/Admin'
+import AdminLogin from './pages/AdminLogin'
 import NotFound from './pages/NotFound'
+import AdminRoute from './components/AdminRoute'
 
 const pageTitles = {
   '/': 'Kushwaha Group — Screw & Barrel Manufacturers',
@@ -49,7 +51,8 @@ function AppLayout() {
           <Route path="/capabilities" element={<Capabilities />} />
           <Route path="/quality" element={<Quality />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin-login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminRoute><Admin /></AdminRoute>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
