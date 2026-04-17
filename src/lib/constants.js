@@ -6,7 +6,8 @@ export const COMPANY = {
   email: 'kushwahavivek6265@gmail.com',
   location: 'Ahmedabad, Gujarat, India',
   address: 'Shade No 1, Panchratna Alpha Industrial Cottage, Ahmedabad, Gujarat, India',
-  whatsappMsg: "Hello Kushwaha Group! 👋 I visited your website and I'm interested in your precision screw and barrel manufacturing services. Could we discuss my requirements?"
+  whatsappMsg: "Hello Kushwaha Group! 👋 I visited your website and I'm interested in your precision screw and barrel manufacturing services. Could we discuss my requirements?",
+  googleMapsEmbed: "https://maps.google.com/maps?q=Shade%20No%201,%20Panchratna%20Alpha%20Industrial%20Cottage,%20Ahmedabad,%20Gujarat,%20India&t=&z=13&ie=UTF8&iwloc=&output=embed"
 }
 
 export const CAPABILITY_STATS = [

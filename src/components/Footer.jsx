@@ -40,7 +40,7 @@ export default function Footer() {
             <h3 className="font-display text-2xl text-gray-900 dark:text-white mb-6 uppercase tracking-wider">Quick Links</h3>
             <div className="flex flex-col gap-4">
               {NAV_LINKS.map(link => (
-                <Link key={link.path} to={link.path} className="text-gray-600 dark:text-brand-muted hover:text-brand-accent hover:translate-x-1 transition-all duration-200 w-fit">
+                <Link key={link.to} to={link.to} className="text-gray-600 dark:text-brand-muted hover:text-brand-accent hover:translate-x-1 transition-all duration-200 w-fit">
                   {link.label}
                 </Link>
               ))}
