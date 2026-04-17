@@ -1,87 +1,39 @@
 import { Link } from 'react-router-dom'
+import { ArrowLeft, Settings } from 'lucide-react'
 
 export default function NotFound() {
   return (
-    <div style={styles.page}>
-      <div style={styles.content}>
-        <h1 style={styles.errorText}>404</h1>
-        <h2 style={styles.subtitle}>Page Not Found</h2>
-        <p style={styles.text}>
-          The page you are looking for does not exist or has been moved.
+    <div className="min-h-screen bg-brand-dark flex items-center justify-center font-body p-6 relative overflow-hidden">
+      
+      {/* Background Ambient Effects */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-accent/5 rounded-full blur-3xl"></div>
+      
+      {/* Spinning Gear Background */}
+      <Settings size={600} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-brand-border/10 animate-spin-slow object-center" />
+
+      <div className="max-w-2xl text-center relative z-10 flex flex-col items-center">
+        <h1 className="font-display text-[12rem] md:text-[16rem] text-brand-accent leading-none drop-shadow-2xl mb-4 animate-fade-up">
+          404
+        </h1>
+        
+        <h2 className="font-display text-4xl md:text-5xl text-white uppercase tracking-widest mb-6 animate-fade-up" style={{ animationDelay: '0.1s' }}>
+          Page Not Found
+        </h2>
+        
+        <p className="text-brand-muted text-xl mb-12 max-w-lg mb-8 animate-fade-up font-light" style={{ animationDelay: '0.2s' }}>
+          The machine component you are looking for has been moved, removed, or is temporarily unavailable. 
         </p>
-        <div style={styles.btnGroup}>
-          <Link to="/" style={styles.btnPrimary}>Go Home</Link>
-          <Link to="/products" style={styles.btnSecondary}>View Products</Link>
+
+        <div className="flex flex-col sm:flex-row gap-4 animate-fade-up" style={{ animationDelay: '0.3s' }}>
+          <Link to="/" className="bg-brand-accent text-brand-dark font-display text-xl uppercase tracking-wider px-10 py-4 rounded-lg hover:bg-brand-gold active:scale-95 transition-all w-full sm:w-auto inline-flex items-center justify-center gap-2">
+            <ArrowLeft size={20} /> Return to Factory Floor
+          </Link>
+          <Link to="/products" className="border border-brand-border bg-brand-steel text-brand-light font-display text-xl uppercase tracking-wider px-10 py-4 rounded-lg hover:border-brand-accent focus:outline-none transition-all w-full sm:w-auto">
+            Browse Catalogue
+          </Link>
         </div>
       </div>
+      
     </div>
   )
-}
-
-const styles = {
-  page: {
-    minHeight: '100vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'var(--color-navy)',
-    color: '#fff',
-    textAlign: 'center',
-    padding: '20px'
-  },
-  content: {
-    maxWidth: '600px'
-  },
-  errorText: {
-    fontFamily: 'var(--font-display)',
-    fontSize: '10rem',
-    fontWeight: 800,
-    color: 'var(--color-amber)',
-    lineHeight: 1,
-    marginBottom: '10px'
-  },
-  subtitle: {
-    fontFamily: 'var(--font-display)',
-    fontSize: '3rem',
-    textTransform: 'uppercase',
-    marginBottom: '20px',
-    letterSpacing: '1px'
-  },
-  text: {
-    fontFamily: 'var(--font-body)',
-    fontSize: '1.2rem',
-    color: '#CBD5E0',
-    marginBottom: '40px'
-  },
-  btnGroup: {
-    display: 'flex',
-    gap: '20px',
-    justifyContent: 'center',
-    flexWrap: 'wrap'
-  },
-  btnPrimary: {
-    backgroundColor: 'var(--color-amber)',
-    color: '#fff',
-    padding: '16px 36px',
-    textDecoration: 'none',
-    fontFamily: 'var(--font-display)',
-    fontSize: '1.3rem',
-    fontWeight: 700,
-    textTransform: 'uppercase',
-    borderRadius: '4px',
-    transition: 'background-color 0.2s'
-  },
-  btnSecondary: {
-    backgroundColor: 'transparent',
-    color: '#fff',
-    border: '2px solid #fff',
-    padding: '14px 36px',
-    textDecoration: 'none',
-    fontFamily: 'var(--font-display)',
-    fontSize: '1.3rem',
-    fontWeight: 700,
-    textTransform: 'uppercase',
-    borderRadius: '4px',
-    transition: 'all 0.2s'
-  }
 }

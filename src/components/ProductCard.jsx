@@ -1,158 +1,55 @@
 import { Link } from 'react-router-dom'
-import { Settings, ArrowRight } from 'lucide-react'
+import { Settings } from 'lucide-react'
 
 export default function ProductCard({ product }) {
-  // Determine placeholder icon if no image
   const hasImage = Boolean(product.image_url)
 
   return (
-    <div style={styles.card}>
-      <Link to={`/products/${product.id}`} style={styles.imageLink}>
+    <div className="bg-brand-card border border-brand-border rounded-xl overflow-hidden hover:border-brand-accent hover:-translate-y-1 transition-all duration-300 flex flex-col group">
+      <Link to={`/products/${product.id}`} className="block aspect-video bg-brand-steel relative overflow-hidden">
         {hasImage ? (
           <img 
             src={product.image_url} 
             alt={product.name} 
             loading="lazy" 
-            style={styles.image} 
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
           />
         ) : (
-          <div style={styles.placeholder}>
-            <Settings size={60} color="#CBD5E0" />
+          <div className="w-full h-full flex items-center justify-center">
+            <Settings size={48} className="text-brand-muted opacity-50" />
           </div>
         )}
+        <div className="absolute top-4 left-4 bg-brand-dark/90 text-brand-accent border border-brand-accent/30 px-3 py-1 rounded shadow-md font-mono text-[10px] uppercase tracking-wider backdrop-blur-sm">
+          {product.machine_type.replace('_', ' ')}
+        </div>
       </Link>
 
-      <div style={styles.content}>
-        <div style={styles.badge}>{product.machine_type.replace('_', ' ')}</div>
-        <Link to={`/products/${product.id}`} style={{ textDecoration: 'none' }}>
-          <h3 style={styles.title}>{product.name}</h3>
+      <div className="p-6 flex flex-col flex-grow">
+        <Link to={`/products/${product.id}`} className="mb-4">
+          <h3 className="font-display text-2xl text-white group-hover:text-brand-accent transition-colors leading-tight">{product.name}</h3>
         </Link>
         
-        <div style={styles.meta}>
+        <div className="flex flex-col gap-2 font-mono text-xs text-brand-muted mb-6 flex-grow">
           {product.material && (
-            <div style={styles.metaRow}>
-              <strong>Material:</strong> {product.material}
+            <div className="flex items-start justify-between border-b border-brand-border/50 pb-2">
+              <span className="uppercase tracking-wider">Material</span>
+              <span className="text-brand-light text-right">{product.material}</span>
             </div>
           )}
           {product.diameter_range && (
-            <div style={styles.metaRow}>
-              <strong>Diameter:</strong> {product.diameter_range}
+            <div className="flex items-start justify-between border-b border-brand-border/50 pb-2">
+              <span className="uppercase tracking-wider">Diameter</span>
+              <span className="text-brand-light text-right">{product.diameter_range}</span>
             </div>
           )}
         </div>
 
-        <div style={styles.actions}>
-          <Link to={`/products/${product.id}`} style={styles.btnOutline}>
-            View Details
-          </Link>
-          {/* Quote link will redirect to Contact for specific product or open modal from Detail page */}
-          <Link to={`/contact?interest=${encodeURIComponent(product.name)}`} style={styles.btnSolid}>
-            Request Quote <ArrowRight size={16} />
+        <div className="mt-auto">
+          <Link to={`/products/${product.id}`} className="text-brand-accent hover:text-brand-gold font-semibold text-sm transition-colors flex items-center gap-2 w-fit">
+            View Details <span>&rarr;</span>
           </Link>
         </div>
       </div>
     </div>
   )
-}
-
-const styles = {
-  card: {
-    backgroundColor: '#fff',
-    borderRadius: '8px',
-    boxShadow: 'var(--shadow-card)',
-    overflow: 'hidden',
-    display: 'flex',
-    flexDirection: 'column',
-    transition: 'transform 0.2s, box-shadow 0.2s',
-  },
-  imageLink: {
-    display: 'block',
-    height: '220px',
-    backgroundColor: 'var(--color-navy)',
-    position: 'relative',
-    overflow: 'hidden'
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
-  },
-  placeholder: {
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#F4F6F9',
-    borderBottom: '1px solid var(--color-border)'
-  },
-  content: {
-    padding: '20px',
-    display: 'flex',
-    flexDirection: 'column',
-    flexGrow: 1
-  },
-  badge: {
-    backgroundColor: '#FFFBEB',
-    color: 'var(--color-amber)',
-    padding: '4px 10px',
-    borderRadius: '4px',
-    fontSize: '0.75rem',
-    fontWeight: 700,
-    textTransform: 'uppercase',
-    alignSelf: 'flex-start',
-    marginBottom: '12px'
-  },
-  title: {
-    fontFamily: 'var(--font-display)',
-    fontSize: '1.4rem',
-    color: 'var(--color-navy)',
-    marginBottom: '12px',
-    textTransform: 'uppercase',
-    lineHeight: 1.2
-  },
-  meta: {
-    color: 'var(--color-steel)',
-    fontSize: '0.9rem',
-    lineHeight: 1.6,
-    marginBottom: '20px',
-    flexGrow: 1
-  },
-  metaRow: {
-    marginBottom: '4px'
-  },
-  actions: {
-    display: 'flex',
-    gap: '10px',
-    marginTop: 'auto'
-  },
-  btnOutline: {
-    flex: 1,
-    textAlign: 'center',
-    border: '1px solid var(--color-border)',
-    color: 'var(--color-navy)',
-    padding: '10px',
-    borderRadius: '4px',
-    textDecoration: 'none',
-    fontSize: '0.9rem',
-    fontWeight: 600,
-    fontFamily: 'var(--font-body)',
-    transition: 'background-color 0.2s'
-  },
-  btnSolid: {
-    flex: 1,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '6px',
-    backgroundColor: 'var(--color-amber)',
-    color: '#fff',
-    padding: '10px',
-    borderRadius: '4px',
-    textDecoration: 'none',
-    fontSize: '0.9rem',
-    fontWeight: 600,
-    fontFamily: 'var(--font-body)',
-    transition: 'background-color 0.2s'
-  }
 }

@@ -39,7 +39,7 @@ function AppLayout() {
     <>
       <ScrollToTop />
       <Navbar />
-      <main>
+      <main className="animate-fade-in min-h-screen flex flex-col">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />

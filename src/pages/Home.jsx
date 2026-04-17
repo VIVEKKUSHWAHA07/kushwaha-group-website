@@ -1,372 +1,173 @@
-import { Link } from 'react-router-dom'
-import { ArrowRight, Settings, CheckCircle, PenTool, LayoutTemplate, Factory, Sliders, Box } from 'lucide-react'
-import { CAPABILITY_STATS, INDUSTRIES_SERVED } from '../lib/constants'
+import { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { ArrowRight, Box } from 'lucide-react'
+import { supabase } from '../lib/supabase'
+import ProductCard from '../components/ProductCard'
 
 export default function Home() {
+  const [featuredProducts, setFeaturedProducts] = useState([])
+  const [loading, setLoading] = useState(true)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    async function fetchFeatured() {
+      const { data } = await supabase
+        .from('products')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(3)
+      
+      if (data) setFeaturedProducts(data)
+      setLoading(false)
+    }
+    fetchFeatured()
+  }, [])
+
   return (
-    <div style={styles.page}>
-      {/* 8.1 Hero Section */}
-      <section style={styles.hero}>
-        <div className="container" style={styles.heroContainer}>
-          <div style={styles.heroLeft}>
-            <h1 style={styles.heroHeadline}>
-              PRECISION SCREWS & BARRELS FOR PLASTICS PROCESSING
+    <div className="font-body overflow-hidden">
+      {/* HERO SECTION */}
+      <section className="relative min-h-[90vh] flex items-center bg-brand-dark overflow-hidden">
+        {/* Subtle diagonal grid pattern */}
+        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(232,197,71,0.05) 10px, rgba(232,197,71,0.05) 20px)' }}></div>
+        
+        <div className="max-w-7xl mx-auto px-6 w-full relative z-10 flex flex-col md:flex-row items-center gap-12 py-20">
+          
+          {/* Left Column */}
+          <div className="flex-1 w-full flex flex-col items-start gap-6">
+            <div className="animate-fade-up opacity-0" style={{ animationDelay: '0.1s' }}>
+              <span className="font-mono text-xs text-brand-accent border border-brand-accent/30 px-4 py-1.5 rounded-full uppercase tracking-widest backdrop-blur-sm bg-brand-dark/50">
+                ISO Certified Manufacturer
+              </span>
+            </div>
+            
+            <h1 className="font-display text-7xl md:text-8xl lg:text-9xl text-white leading-[0.85] animate-fade-up opacity-0 text-left" style={{ animationDelay: '0.2s' }}>
+              PRECISION<br/>
+              <span className="text-brand-accent">SCREWS</span> &<br/>
+              BARRELS
             </h1>
-            <p style={styles.heroSub}>
+            
+            <p className="text-brand-muted text-lg md:text-xl max-w-xl leading-relaxed animate-fade-up opacity-0 font-light" style={{ animationDelay: '0.3s' }}>
               Manufacturers of high-performance components engineered for durability and maximum output. We build for Injection, Extrusion, and Blow Moulding machines.
             </p>
-            <div style={styles.ctaGroup}>
-              <Link to="/contact" style={styles.btnPrimary}>
-                Request a Quote <ArrowRight size={20} />
+            
+            <div className="flex flex-wrap items-center gap-4 animate-fade-up opacity-0 mt-4" style={{ animationDelay: '0.4s' }}>
+              <Link to="/products" className="bg-brand-accent text-brand-dark font-display tracking-wide text-xl px-8 py-4 rounded hover:bg-brand-gold active:scale-95 transition-all duration-200">
+                View Catalogue
               </Link>
-              <Link to="/products" style={styles.btnSecondary}>
-                View Products
+              <Link to="/contact" className="border border-brand-border text-brand-light font-display tracking-wide text-xl px-8 py-4 rounded hover:border-brand-accent hover:text-brand-accent active:scale-95 transition-all duration-200">
+                Request Quote
               </Link>
             </div>
           </div>
-          <div style={styles.heroRight}>
-            <Settings size={280} color="var(--color-amber)" opacity={0.2} style={styles.heroIcon} />
-            <Settings size={140} color="#fff" opacity={0.1} style={styles.heroIconSmall} />
-          </div>
-        </div>
-      </section>
 
-      {/* 8.2 Stats Strip */}
-      <section style={styles.statsStrip}>
-        <div className="container">
-          <div style={styles.statsGrid}>
-            {CAPABILITY_STATS.map((stat, i) => (
-              <div key={i} style={styles.statBox}>
-                <div style={styles.statValue}>{stat.value}</div>
-                <div style={styles.statLabel}>{stat.label}</div>
+          {/* Right Column */}
+          <div className="hidden md:flex flex-col items-center justify-center w-5/12 animate-fade-up opacity-0" style={{ animationDelay: '0.5s' }}>
+            <div className="relative">
+              {/* Rotating abstract gear/industrial element mockup */}
+              <div className="w-80 h-80 border border-brand-border/30 rounded-full animate-spin-slow flex items-center justify-center relative shadow-2xl shadow-brand-accent/5">
+                <div className="w-64 h-64 border border-brand-border/50 rounded-full flex items-center justify-center">
+                  <div className="w-48 h-48 border border-brand-border/80 rounded-full"></div>
+                </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 8.3 Products Overview */}
-      <section style={styles.section}>
-        <div className="container">
-          <h2 style={styles.sectionTitle}>Precision Engineered Products</h2>
-          <div style={styles.productGrid}>
-            <ProductCard icon={<LayoutTemplate size={40} />} title="Injection Moulding" link="injection" />
-            <ProductCard icon={<Factory size={40} />} title="Extrusion" link="extrusion" />
-            <ProductCard icon={<Box size={40} />} title="Blow Moulding" link="blow_moulding" />
-            <ProductCard icon={<Sliders size={40} />} title="Custom Orders" link="custom" />
-          </div>
-        </div>
-      </section>
-
-      {/* 8.4 Why Choose Us */}
-      <section style={{ ...styles.section, backgroundColor: '#fff' }}>
-        <div className="container">
-          <h2 style={styles.sectionTitle}>Why Choose Kushwaha Group</h2>
-          <div style={styles.whyGrid}>
-            <div style={styles.whyCard}>
-              <CheckCircle size={40} color="var(--color-amber)" />
-              <h3 style={styles.whyTitle}>Precision Manufacturing</h3>
-              <p style={styles.whyDesc}>Every component is CNC machined to exact tolerances ensuring zero-defect performance in high-pressure environments.</p>
-            </div>
-            <div style={styles.whyCard}>
-              <Settings size={40} color="var(--color-amber)" />
-              <h3 style={styles.whyTitle}>All Machine Types</h3>
-              <p style={styles.whyDesc}>From 20mm to 300mm, we supply matched geometries for single and twin screw applications across all plastics processes.</p>
-            </div>
-            <div style={styles.whyCard}>
-              <PenTool size={40} color="var(--color-amber)" />
-              <h3 style={styles.whyTitle}>Custom Orders</h3>
-              <p style={styles.whyDesc}>Need a complex mixing section or barrier flight? Send us your drawing and we'll deliver exactly what you specify.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 8.5 Industries Preview */}
-      <section style={styles.section}>
-        <div className="container">
-          <h2 style={styles.sectionTitle}>Industries We Serve</h2>
-          <div style={styles.industryGrid}>
-            {INDUSTRIES_SERVED.slice(0, 3).map((ind, i) => (
-              <div key={i} style={styles.industryCard}>
-                <h3 style={styles.indTitle}>{ind.name}</h3>
-                <p style={styles.indDesc}>{ind.desc}</p>
+              <div className="absolute inset-0 flex flex-col items-center justify-center backdrop-blur-sm">
+                <span className="font-display text-8xl text-brand-light drop-shadow-2xl">2500+</span>
+                <span className="font-mono text-brand-accent uppercase tracking-widest text-sm mt-2 font-semibold">Products Delivered</span>
               </div>
-            ))}
+            </div>
           </div>
-          <div style={{ textAlign: 'right', marginTop: '30px' }}>
-            <Link to="/industries" style={styles.viewAll}>
-              View All Industries <ArrowRight size={18} />
+        </div>
+      </section>
+
+      {/* STATS BAR */}
+      <section className="bg-brand-steel border-y border-brand-border py-12">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-brand-border/20">
+            <div className="flex flex-col flex-1 items-center justify-center text-center px-4">
+              <div className="font-display text-5xl md:text-6xl text-brand-accent mb-2">15+</div>
+              <div className="font-mono text-xs text-brand-light uppercase tracking-widest">Years Experience</div>
+            </div>
+            <div className="flex flex-col flex-1 items-center justify-center text-center px-4">
+              <div className="font-display text-5xl md:text-6xl text-brand-accent mb-2">2500+</div>
+              <div className="font-mono text-xs text-brand-light uppercase tracking-widest">Products</div>
+            </div>
+            <div className="flex flex-col flex-1 items-center justify-center text-center px-4">
+              <div className="font-display text-5xl md:text-6xl text-brand-accent mb-2">50+</div>
+              <div className="font-mono text-xs text-brand-light uppercase tracking-widest">Industries</div>
+            </div>
+            <div className="flex flex-col flex-1 items-center justify-center text-center px-4">
+              <div className="font-display text-5xl md:text-6xl text-brand-accent mb-2">100%</div>
+              <div className="font-mono text-xs text-brand-light uppercase tracking-widest">Pan India</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FEATURED PRODUCTS */}
+      <section className="py-24 px-6 md:px-12 lg:px-20 bg-brand-dark">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-brand-border pb-6">
+            <h2 className="font-display text-5xl md:text-6xl text-white">Featured Products</h2>
+            <Link to="/products" className="text-brand-accent hover:text-brand-gold font-mono uppercase tracking-widest text-sm mb-2 flex items-center gap-2 group transition-colors">
+              View All Catalogue <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
+          
+          {loading ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[1, 2, 3].map(n => (
+                <div key={n} className="bg-brand-card rounded-xl h-[400px] animate-pulse border border-brand-border"></div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {featuredProducts.length > 0 ? (
+                featuredProducts.map(p => <ProductCard key={p.id} product={p} />)
+              ) : (
+                <div className="col-span-full py-20 text-center border border-dashed border-brand-border rounded-xl">
+                  <Box size={48} className="mx-auto text-brand-muted mb-4 opacity-50" />
+                  <p className="font-mono text-brand-muted">No featured products yet.</p>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </section>
 
-      {/* 8.6 CTA Banner */}
-      <section style={styles.ctaBanner}>
-        <div className="container" style={styles.ctaBannerContent}>
-          <h2 style={styles.ctaBannerTitle}>Have a Custom Requirement? We Build to Your Specifications.</h2>
-          <Link to="/contact" style={styles.ctaBannerBtn}>Get a Free Quote</Link>
+      {/* CAPABILITIES STRIP */}
+      <section className="py-12 bg-brand-dark border-y border-brand-border overflow-hidden relative">
+        <div className="flex whitespace-nowrap animate-slide-left opacity-0" style={{ animationDelay: '0.2s' }}>
+          {/* We'll duplicate the string to make it visually full width depending on screen size easily */}
+          {[1,2,3].map((_, idx) => (
+            <div key={idx} className="flex gap-4 px-4 items-center shrink-0">
+              {['Injection Moulding', 'Extrusion', 'Blow Moulding', 'Custom CNC Machining', 'Bimetallic Coating', 'Nitriding'].map(tag => (
+                <div key={tag} className="border border-brand-border bg-brand-card/50 text-brand-light rounded-full px-6 py-3 text-sm font-mono hover:border-brand-accent hover:text-brand-accent transition-colors cursor-default whitespace-nowrap">
+                  {tag}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA SECTION */}
+      <section className="bg-brand-card py-24 border-y border-brand-border relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5" style={{ background: 'radial-gradient(circle at center, #E8C547 0%, transparent 60%)' }}></div>
+        <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+          <h2 className="font-display text-5xl md:text-7xl text-white mb-8 uppercase leading-none">
+            Built To Your Exact<br/>Specifications
+          </h2>
+          <p className="font-body text-brand-muted mb-10 max-w-2xl mx-auto text-lg">
+            Whether you need a standard replacement or a highly customized screw profile for specialized polymers, our engineering team is ready to deliver.
+          </p>
+          <button 
+            onClick={() => document.querySelector('.ctaBtn')?.click()} // Hack to click the navbar CTA internally since QuoteModal state is lifted or local. Let's redirect to contact.
+            className="hidden" id="trigger-modal"
+          ></button>
+          <Link to="/contact" className="bg-brand-accent text-brand-dark font-display tracking-widest uppercase text-2xl px-12 py-5 rounded-lg hover:bg-brand-gold active:scale-95 transition-all shadow-xl shadow-brand-accent/20 inline-block">
+            Send an RFQ
+          </Link>
         </div>
       </section>
     </div>
   )
-}
-
-function ProductCard({ icon, title, link }) {
-  return (
-    <Link to={`/products?filter=${link}`} style={styles.pCard}>
-      <div style={styles.pCardIcon}>{icon}</div>
-      <h3 style={styles.pCardTitle}>{title}</h3>
-      <div style={styles.pCardArrow}><ArrowRight /></div>
-    </Link>
-  )
-}
-
-const styles = {
-  page: {
-    fontFamily: 'var(--font-body)',
-  },
-  hero: {
-    minHeight: '80vh',
-    backgroundColor: 'var(--color-navy)',
-    backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.02) 10px, rgba(255,255,255,0.02) 20px)',
-    display: 'flex',
-    alignItems: 'center',
-    position: 'relative',
-    overflow: 'hidden'
-  },
-  heroContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '40px',
-    padding: '80px 20px',
-    position: 'relative',
-    zIndex: 10
-  },
-  heroLeft: {
-    flex: '1 1 60%',
-  },
-  heroHeadline: {
-    fontFamily: 'var(--font-display)',
-    fontSize: 'clamp(3rem, 5vw, 4.5rem)',
-    fontWeight: 800,
-    color: 'var(--color-white)',
-    lineHeight: 1.1,
-    marginBottom: '20px',
-    textTransform: 'uppercase'
-  },
-  heroSub: {
-    fontSize: '1.1rem',
-    color: '#CBD5E0',
-    marginBottom: '40px',
-    maxWidth: '600px',
-    lineHeight: 1.6
-  },
-  ctaGroup: {
-    display: 'flex',
-    gap: '20px',
-    flexWrap: 'wrap'
-  },
-  btnPrimary: {
-    backgroundColor: 'var(--color-amber)',
-    color: 'var(--color-white)',
-    padding: '16px 32px',
-    fontFamily: 'var(--font-display)',
-    fontSize: '1.2rem',
-    textTransform: 'uppercase',
-    fontWeight: 700,
-    textDecoration: 'none',
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '10px',
-    borderRadius: '4px',
-    transition: 'background-color 0.2s',
-  },
-  btnSecondary: {
-    backgroundColor: 'transparent',
-    color: 'var(--color-white)',
-    border: '2px solid var(--color-white)',
-    padding: '14px 32px',
-    fontFamily: 'var(--font-display)',
-    fontSize: '1.2rem',
-    textTransform: 'uppercase',
-    fontWeight: 700,
-    textDecoration: 'none',
-    display: 'inline-flex',
-    alignItems: 'center',
-    borderRadius: '4px',
-    transition: 'all 0.2s',
-  },
-  heroRight: {
-    flex: '1 1 40%',
-    position: 'relative',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  heroIcon: {
-    position: 'absolute',
-    animation: 'spin 60s linear infinite',
-  },
-  heroIconSmall: {
-    position: 'absolute',
-    animation: 'spin 40s linear infinite reverse',
-  },
-  statsStrip: {
-    backgroundColor: '#EEF2F7',
-    padding: '40px 0',
-  },
-  statsGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-    gap: '20px',
-    textAlign: 'center'
-  },
-  statBox: {
-    padding: '20px',
-    backgroundColor: '#fff',
-    borderRadius: '8px',
-    boxShadow: '0 2px 10px rgba(0,0,0,0.05)'
-  },
-  statValue: {
-    fontFamily: 'var(--font-display)',
-    fontSize: '2.5rem',
-    fontWeight: 700,
-    color: 'var(--color-amber)',
-    lineHeight: 1
-  },
-  statLabel: {
-    color: 'var(--color-steel)',
-    fontWeight: 600,
-    marginTop: '8px',
-    textTransform: 'uppercase',
-    fontSize: '0.9rem'
-  },
-  section: {
-    padding: '80px 0',
-  },
-  sectionTitle: {
-    fontFamily: 'var(--font-display)',
-    fontSize: '2.5rem',
-    color: 'var(--color-navy)',
-    marginBottom: '40px',
-    textAlign: 'center',
-    textTransform: 'uppercase'
-  },
-  productGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-    gap: '30px'
-  },
-  pCard: {
-    backgroundColor: '#fff',
-    padding: '40px 30px',
-    borderRadius: '12px',
-    textDecoration: 'none',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    boxShadow: 'var(--shadow-card)',
-    transition: 'transform 0.3s, box-shadow 0.3s',
-    color: 'var(--color-navy)',
-    textAlign: 'center'
-  },
-  pCardIcon: {
-    color: 'var(--color-navy)',
-    marginBottom: '20px',
-  },
-  pCardTitle: {
-    fontFamily: 'var(--font-display)',
-    fontSize: '1.5rem',
-    marginBottom: '16px',
-    textTransform: 'uppercase'
-  },
-  pCardArrow: {
-    color: 'var(--color-amber)',
-  },
-  whyGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-    gap: '40px',
-  },
-  whyCard: {
-    textAlign: 'center',
-    padding: '30px',
-  },
-  whyTitle: {
-    fontFamily: 'var(--font-display)',
-    fontSize: '1.8rem',
-    color: 'var(--color-navy)',
-    margin: '20px 0 10px',
-    textTransform: 'uppercase'
-  },
-  whyDesc: {
-    color: 'var(--color-steel)',
-    lineHeight: 1.6
-  },
-  industryGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-    gap: '30px',
-  },
-  industryCard: {
-    backgroundColor: '#fff',
-    borderLeft: '4px solid var(--color-amber)',
-    padding: '30px',
-    boxShadow: 'var(--shadow-card)',
-  },
-  indTitle: {
-    fontFamily: 'var(--font-display)',
-    fontSize: '1.5rem',
-    color: 'var(--color-navy)',
-    marginBottom: '10px',
-    textTransform: 'uppercase'
-  },
-  indDesc: {
-    color: 'var(--color-steel)'
-  },
-  viewAll: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '8px',
-    color: 'var(--color-navy)',
-    fontWeight: 600,
-    textDecoration: 'none',
-    fontFamily: 'var(--font-display)',
-    fontSize: '1.2rem',
-    textTransform: 'uppercase'
-  },
-  ctaBanner: {
-    backgroundColor: 'var(--color-amber)',
-    padding: '60px 0',
-    textAlign: 'center'
-  },
-  ctaBannerContent: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: '30px'
-  },
-  ctaBannerTitle: {
-    fontFamily: 'var(--font-display)',
-    fontSize: '2.5rem',
-    color: '#fff',
-    maxWidth: '800px',
-    margin: '0 auto',
-    textTransform: 'uppercase'
-  },
-  ctaBannerBtn: {
-    backgroundColor: '#fff',
-    color: 'var(--color-amber)',
-    padding: '16px 40px',
-    fontFamily: 'var(--font-display)',
-    fontSize: '1.3rem',
-    fontWeight: 700,
-    textTransform: 'uppercase',
-    textDecoration: 'none',
-    borderRadius: '4px',
-    boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
-    transition: 'transform 0.2s'
-  }
 }

@@ -4,38 +4,43 @@ import { COMPANY, NAV_LINKS } from '../lib/constants'
 
 export default function Footer() {
   return (
-    <footer style={styles.footer}>
-      <div className="container" style={styles.container}>
-        <div style={styles.grid}>
+    <footer className="bg-brand-steel border-t border-brand-border pt-20 pb-10">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-16">
           {/* Company Info */}
           <div>
-            <Link to="/" style={styles.brand}>
-              <span style={styles.brandName}>{COMPANY.name}</span>
-              <span style={styles.brandTagline}>{COMPANY.tagline}</span>
-            </Link>
-            <p style={styles.text}>{COMPANY.subTagline}</p>
-            <div style={styles.contactList}>
-              <div style={styles.contactItem}>
-                <MapPin size={16} color="#E07B00" />
-                <span>{COMPANY.address}</span>
+            <Link to="/" className="flex items-center gap-4 group mb-6">
+              <img src="/logo.svg" alt="Kushwaha Group Logo" className="w-14 h-14 object-contain group-hover:scale-105 transition-transform" />
+              <div className="flex flex-col">
+                <span className="font-display tracking-wide text-3xl md:text-4xl text-brand-light group-hover:text-brand-accent transition-colors">KUSHWAHA GROUP</span>
+                <span className="font-mono text-[10px] md:text-xs text-brand-accent uppercase tracking-widest leading-none mt-1">{COMPANY.tagline}</span>
               </div>
-              <a href={`tel:${COMPANY.phone}`} style={styles.contactLink}>
-                <Phone size={16} color="#E07B00" />
+            </Link>
+            <p className="text-brand-muted leading-relaxed mb-8">
+              {COMPANY.subTagline}
+            </p>
+            <div className="flex flex-col gap-4 font-mono text-sm">
+              <div className="flex items-start gap-4 text-brand-light">
+                <MapPin size={20} className="text-brand-accent shrink-0" />
+                <span className="leading-snug">{COMPANY.address}</span>
+              </div>
+              <a href={`tel:${COMPANY.phone}`} className="flex items-center gap-4 text-brand-light hover:text-brand-accent transition-colors">
+                <Phone size={20} className="text-brand-accent shrink-0" />
                 <span>{COMPANY.phone}</span>
               </a>
-              <a href={`mailto:${COMPANY.email}`} style={styles.contactLink}>
-                <Mail size={16} color="#E07B00" />
+              <a href={`mailto:${COMPANY.email}`} className="flex items-center gap-4 text-brand-light hover:text-brand-accent transition-colors">
+                <Mail size={20} className="text-brand-accent shrink-0" />
                 <span>{COMPANY.email}</span>
               </a>
             </div>
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h3 style={styles.heading}>Quick Links</h3>
-            <div style={styles.linkList}>
+          <div className="lg:pl-12">
+            <h3 className="font-display text-2xl text-white mb-6 uppercase tracking-wider">Quick Links</h3>
+            <div className="flex flex-col gap-4">
               {NAV_LINKS.map(link => (
-                <Link key={link.path} to={link.path} style={styles.link}>
+                <Link key={link.path} to={link.path} className="text-brand-muted hover:text-brand-accent hover:translate-x-1 transition-all duration-200 w-fit">
                   {link.label}
                 </Link>
               ))}
@@ -44,112 +49,35 @@ export default function Footer() {
 
           {/* Products */}
           <div>
-            <h3 style={styles.heading}>Our Products</h3>
-            <div style={styles.linkList}>
-              <Link to="/products?filter=injection" style={styles.link}>Injection Moulding Screws</Link>
-              <Link to="/products?filter=extrusion" style={styles.link}>Extrusion Barrels</Link>
-              <Link to="/products?filter=blow_moulding" style={styles.link}>Blow Moulding Assemblies</Link>
-              <Link to="/capabilities" style={styles.link}>Custom Manufacturing</Link>
+            <h3 className="font-display text-2xl text-white mb-6 uppercase tracking-wider">Our Products</h3>
+            <div className="flex flex-col gap-4">
+              <Link to="/products?filter=injection" className="text-brand-muted hover:text-brand-accent hover:translate-x-1 transition-all duration-200 flex items-center justify-between group border-b border-brand-border/50 pb-3">
+                <span>Injection Moulding Screws</span>
+                <span className="text-brand-accent opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+              </Link>
+              <Link to="/products?filter=extrusion" className="text-brand-muted hover:text-brand-accent hover:translate-x-1 transition-all duration-200 flex items-center justify-between group border-b border-brand-border/50 pb-3">
+                <span>Extrusion Barrels</span>
+                <span className="text-brand-accent opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+              </Link>
+              <Link to="/products?filter=blow_moulding" className="text-brand-muted hover:text-brand-accent hover:translate-x-1 transition-all duration-200 flex items-center justify-between group border-b border-brand-border/50 pb-3">
+                <span>Blow Moulding Assemblies</span>
+                <span className="text-brand-accent opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+              </Link>
+              <Link to="/capabilities" className="text-brand-muted hover:text-brand-accent hover:translate-x-1 transition-all duration-200 flex items-center justify-between group pb-3">
+                <span>Custom Manufacturing</span>
+                <span className="text-brand-accent opacity-0 group-hover:opacity-100 transition-opacity">→</span>
+              </Link>
             </div>
           </div>
         </div>
 
-        <div style={styles.bottom}>
-          <p>
-            &copy; {COMPANY.footerYear} {COMPANY.name}. All Rights Reserved. | {COMPANY.address}
+        <div className="pt-8 border-t border-brand-border flex flex-col md:flex-row items-center justify-between gap-4 text-brand-muted text-sm content-center">
+          <p>&copy; {COMPANY.footerYear} {COMPANY.name}. All Rights Reserved.</p>
+          <p className="font-mono text-xs uppercase tracking-widest text-brand-steel bg-brand-accent/90 px-3 py-1 rounded-sm shadow-sm inline-block font-semibold">
+            Powered by precision engineering
           </p>
         </div>
       </div>
     </footer>
   )
-}
-
-const styles = {
-  footer: {
-    backgroundColor: 'var(--color-navy)',
-    color: '#CBD5E0',
-    padding: '60px 0 20px',
-    fontFamily: 'var(--font-body)',
-  },
-  container: {
-    maxWidth: '1280px',
-    margin: '0 auto',
-    padding: '0 24px',
-  },
-  grid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-    gap: '40px',
-    marginBottom: '40px',
-  },
-  brand: {
-    textDecoration: 'none',
-    display: 'flex',
-    flexDirection: 'column',
-    marginBottom: '16px',
-  },
-  brandName: {
-    fontFamily: 'var(--font-display)',
-    fontWeight: 800,
-    fontSize: '24px',
-    color: 'var(--color-white)',
-    letterSpacing: '0.5px',
-  },
-  brandTagline: {
-    fontSize: '11px',
-    color: 'var(--color-amber)',
-    letterSpacing: '0.3px',
-    textTransform: 'uppercase',
-  },
-  text: {
-    fontSize: '14px',
-    lineHeight: 1.6,
-    marginBottom: '24px',
-  },
-  heading: {
-    fontFamily: 'var(--font-display)',
-    color: 'var(--color-white)',
-    fontSize: '20px',
-    marginBottom: '20px',
-    letterSpacing: '0.5px',
-    textTransform: 'uppercase',
-  },
-  contactList: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '12px',
-  },
-  contactItem: {
-    display: 'flex',
-    alignItems: 'flex-start',
-    gap: '10px',
-    fontSize: '14px',
-  },
-  contactLink: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '10px',
-    fontSize: '14px',
-    color: '#CBD5E0',
-    textDecoration: 'none',
-    transition: 'color 0.2s',
-  },
-  linkList: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',
-  },
-  link: {
-    color: '#CBD5E0',
-    textDecoration: 'none',
-    fontSize: '15px',
-    transition: 'color 0.2s',
-  },
-  bottom: {
-    borderTop: '1px solid rgba(255,255,255,0.1)',
-    paddingTop: '20px',
-    textAlign: 'center',
-    fontSize: '13px',
-    color: '#A0AEC0',
-  }
 }

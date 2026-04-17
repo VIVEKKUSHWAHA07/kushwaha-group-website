@@ -1,170 +1,90 @@
 import { Link } from 'react-router-dom'
 import { CAPABILITY_STATS } from '../lib/constants'
+import { Settings2, Layers, Ruler, Cpu } from 'lucide-react'
 
 export default function Capabilities() {
   return (
-    <div style={styles.page}>
-      <div style={styles.header}>
-        <div className="container">
-          <h1 style={styles.title}>Manufacturing Capabilities</h1>
-          <p style={styles.subtitle}>Engineered to precise specifications</p>
-        </div>
-      </div>
+    <div className="bg-brand-dark min-h-screen font-body pb-24">
+      
+      {/* Header */}
+      <header className="bg-brand-steel border-b border-brand-border py-24 text-center px-6">
+        <h1 className="font-display text-6xl md:text-7xl text-white uppercase mb-6">Manufacturing Capabilities</h1>
+        <p className="text-brand-muted text-xl uppercase tracking-widest font-mono">Engineered to precise specifications</p>
+      </header>
 
-      {/* Stats Strip Reuse */}
-      <section style={styles.statsStrip}>
-        <div className="container">
-          <div style={styles.statsGrid}>
+      {/* Stats Strip */}
+      <section className="bg-brand-card py-16 border-b border-brand-border">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-brand-border/50">
             {CAPABILITY_STATS.map((stat, i) => (
-              <div key={i} style={styles.statBox}>
-                <div style={styles.statValue}>{stat.value}</div>
-                <div style={styles.statLabel}>{stat.label}</div>
+              <div key={i} className="flex flex-col items-center justify-center text-center px-4">
+                <div className="font-display text-4xl lg:text-5xl text-brand-accent mb-2">{stat.value}</div>
+                <div className="font-mono text-[10px] sm:text-xs text-brand-light uppercase tracking-widest">{stat.label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section style={styles.content}>
-        <div className="container" style={styles.specGrid}>
+      {/* Specs Grid */}
+      <section className="max-w-7xl mx-auto px-6 mt-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
           
-          <div style={styles.card}>
-            <h2 style={styles.cardTitle}>Screw Types</h2>
-            <ul style={styles.list}>
-              <li>General Purpose Screws</li>
-              <li>Barrier Screws</li>
-              <li>Mixing Screws</li>
-              <li>Vented Screws</li>
-              <li>High-Compression Screws</li>
+          <div className="bg-brand-card border border-brand-border rounded-xl p-8 hover:border-brand-accent/50 transition-colors">
+            <Settings2 size={40} className="text-brand-muted mb-6" />
+            <h2 className="font-display text-3xl text-white uppercase border-b border-brand-border pb-4 mb-6">Screw Profiles</h2>
+            <ul className="space-y-4">
+              {['General Purpose Screws', 'Barrier Screws', 'Mixing Elements (Maddock, Pineapple)', 'Vented & Degassing Screws', 'High-Compression Geometries', 'Varying Pitch Designs'].map((i, idx) => (
+                <li key={idx} className="flex items-start gap-3 text-brand-muted">
+                  <span className="text-brand-accent mt-1">▹</span> {i}
+                </li>
+              ))}
             </ul>
           </div>
 
-          <div style={styles.card}>
-            <h2 style={styles.cardTitle}>Barrel Types</h2>
-            <ul style={styles.list}>
-              <li>Standard Single Barrels</li>
-              <li>Bimetallic Barrels</li>
-              <li>Nitride Barrels</li>
-              <li>Twin Screw Barrels</li>
-            </ul>
+          <div className="bg-brand-card border border-brand-border rounded-xl p-8 hover:border-brand-accent/50 transition-colors">
+             <Layers size={40} className="text-brand-muted mb-6" />
+             <h2 className="font-display text-3xl text-white uppercase border-b border-brand-border pb-4 mb-6">Barrel Options</h2>
+             <ul className="space-y-4">
+               {['Standard Nitrided Barrels', 'Bimetallic (Tungsten Carbide) Barrels', 'Grooved Feed Barrels', 'Twin Screw Barrels (Parallel/Conical)', 'Vented Barrels', 'Water/Oil Cooled Barrels'].map((i, idx) => (
+                 <li key={idx} className="flex items-start gap-3 text-brand-muted">
+                   <span className="text-brand-accent mt-1">▹</span> {i}
+                 </li>
+               ))}
+             </ul>
           </div>
 
-          <div style={styles.card}>
-            <h2 style={styles.cardTitle}>Materials Used</h2>
-            <ul style={styles.list}>
-              <li>EN41B Nitrided Steel</li>
-              <li>EN19 Alloy Steel</li>
-              <li>Bimetallic (Tungsten Carbide Lined)</li>
-              <li>Stainless Steel (Food Grade)</li>
+          <div className="bg-brand-card border border-brand-border rounded-xl p-8 hover:border-brand-accent/50 transition-colors">
+            <Ruler size={40} className="text-brand-muted mb-6" />
+            <h2 className="font-display text-3xl text-white uppercase border-b border-brand-border pb-4 mb-6">Materials</h2>
+            <ul className="space-y-4">
+              {['EN41B (Musco) Nitriding Steel', 'DIN 1.8550 High Alloy Steel', 'H13 Tool Steel', 'Stainless Steel (304, 316, 410)', 'Colmonoy & Stellite Hardfacing', 'Hastelloy / Inconel for Aggressive Resins'].map((i, idx) => (
+                <li key={idx} className="flex items-start gap-3 text-brand-muted">
+                  <span className="text-brand-accent mt-1">▹</span> {i}
+                </li>
+              ))}
             </ul>
-          </div>
-
-          <div style={{ ...styles.card, ...styles.customCard }}>
-            <h2 style={{ ...styles.cardTitle, color: '#fff' }}>Custom Orders</h2>
-            <p style={{ color: '#fff', marginBottom: '20px', lineHeight: 1.6 }}>
-              Have a unique geometry or material requirement? Send us your drawing. We manufacture 100% custom processing equipment.
-            </p>
-            <a 
-              href="mailto:kushwahavivek6265@gmail.com?subject=Custom%20Drawing%20Request" 
-              style={styles.mailBtn}
-            >
-              Send Custom Drawing
-            </a>
           </div>
 
         </div>
+
+        {/* Custom Eng Banner */}
+        <div className="bg-brand-accent rounded-xl p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8 mt-8 shadow-2xl relative overflow-hidden">
+          <Cpu className="absolute -right-10 -bottom-10 text-brand-gold opacity-30 w-64 h-64" />
+          <div className="relative z-10 w-full md:w-2/3">
+            <h2 className="font-display text-5xl text-brand-dark uppercase mb-4 leading-tight">Custom Machining & Prototyping</h2>
+            <p className="text-brand-dark/80 text-lg font-medium max-w-xl">
+              Have a highly specialized drawing? We accept custom orders for non-standard OEMs. Our CNC facility can machine exact dimensional matches.
+            </p>
+          </div>
+          <div className="relative z-10 w-full md:w-auto mt-4 md:mt-0 whitespace-nowrap">
+            <a href="mailto:kushwahavivek6265@gmail.com?subject=Custom%20OEM%20Drawing%20Submission" className="inline-block bg-brand-dark text-white font-display text-xl uppercase tracking-wider px-10 py-5 rounded-lg hover:bg-brand-steel active:scale-95 transition-all shadow-xl">
+              Submit Drawing
+            </a>
+          </div>
+        </div>
+
       </section>
     </div>
   )
-}
-
-const styles = {
-  page: { backgroundColor: 'var(--color-bg)', minHeight: '100vh', fontFamily: 'var(--font-body)' },
-  header: {
-    backgroundColor: 'var(--color-navy)',
-    padding: '60px 0',
-    textAlign: 'center',
-    color: '#fff',
-  },
-  title: {
-    fontFamily: 'var(--font-display)',
-    fontSize: '3rem',
-    textTransform: 'uppercase',
-  },
-  subtitle: {
-    color: 'var(--color-amber)',
-    fontSize: '1.2rem',
-    marginTop: '10px'
-  },
-  statsStrip: {
-    backgroundColor: '#fff',
-    padding: '40px 0',
-    borderBottom: '1px solid var(--color-border)'
-  },
-  statsGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-    gap: '20px',
-    textAlign: 'center'
-  },
-  statBox: { padding: '20px' },
-  statValue: {
-    fontFamily: 'var(--font-display)',
-    fontSize: '2.2rem',
-    fontWeight: 700,
-    color: 'var(--color-amber)',
-    lineHeight: 1
-  },
-  statLabel: {
-    color: 'var(--color-steel)',
-    fontWeight: 600,
-    marginTop: '8px',
-    textTransform: 'uppercase',
-    fontSize: '0.9rem'
-  },
-  content: {
-    padding: '80px 0',
-  },
-  specGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-    gap: '30px',
-  },
-  card: {
-    backgroundColor: '#fff',
-    padding: '40px',
-    borderRadius: '8px',
-    boxShadow: 'var(--shadow-card)',
-  },
-  cardTitle: {
-    fontFamily: 'var(--font-display)',
-    fontSize: '1.8rem',
-    color: 'var(--color-navy)',
-    marginBottom: '20px',
-    textTransform: 'uppercase',
-    borderBottom: '2px solid var(--color-bg)',
-    paddingBottom: '10px'
-  },
-  list: {
-    listStyleType: 'disc',
-    paddingLeft: '20px',
-    color: 'var(--color-steel)',
-    lineHeight: 2.2,
-    fontSize: '1.1rem'
-  },
-  customCard: {
-    backgroundColor: 'var(--color-amber)',
-  },
-  mailBtn: {
-    display: 'inline-block',
-    backgroundColor: '#fff',
-    color: 'var(--color-amber)',
-    padding: '12px 24px',
-    textDecoration: 'none',
-    fontFamily: 'var(--font-display)',
-    fontSize: '1.2rem',
-    textTransform: 'uppercase',
-    fontWeight: 700,
-    borderRadius: '4px',
-  }
 }

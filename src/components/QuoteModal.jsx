@@ -86,50 +86,78 @@ export default function QuoteModal({ onClose, defaultProduct = '' }) {
   }
 
   return (
-    <div style={styles.overlay} onClick={onClose}>
-      <div style={styles.modal} onClick={e => e.stopPropagation()}>
-        <button style={styles.closeBtn} onClick={onClose}><X size={24} /></button>
+    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto" onClick={onClose}>
+      <div 
+        className="bg-brand-card border border-brand-border rounded-2xl p-8 w-full max-w-2xl mx-auto my-auto animate-fade-up relative shadow-2xl shadow-black/50" 
+        onClick={e => e.stopPropagation()}
+      >
+        <button 
+          className="absolute top-6 right-6 text-brand-muted hover:text-white transition-colors p-2 rounded-full hover:bg-brand-steel" 
+          onClick={onClose}
+        >
+          <X size={24} />
+        </button>
         
-        <h2 style={styles.title}>Request a Quote</h2>
+        <h2 className="font-display text-4xl text-brand-light border-b border-brand-border pb-4 mb-8">Request a Quote</h2>
         
         {status.message && (
-          <div style={status.type === 'error' ? styles.errorMsg : styles.successMsg}>
+          <div className={`p-4 rounded-lg mb-6 text-sm font-medium border ${status.type === 'error' ? 'bg-red-500/10 text-red-400 border-red-500/20' : 'bg-green-500/10 text-green-400 border-green-500/20 text-center text-lg'}`}>
             {status.message}
           </div>
         )}
 
         {status.type !== 'success' && (
-          <form style={styles.form} onSubmit={handleSubmit}>
+          <form className="flex flex-col gap-5 font-body" onSubmit={handleSubmit}>
             {/* Honeypot */}
-            <input type="text" name="website" style={{ display: 'none' }} onChange={handleChange} value={formData.website} tabIndex="-1" autoComplete="off" />
+            <input type="text" name="website" className="hidden" onChange={handleChange} value={formData.website} tabIndex="-1" autoComplete="off" />
             
-            <div style={styles.formRow}>
-              <div style={styles.inputGroup}>
-                <label style={styles.label}>Full Name *</label>
-                <input type="text" name="client_name" required maxLength="100" style={styles.input} onChange={handleChange} value={formData.client_name} />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-semibold text-brand-muted uppercase tracking-wider">Full Name *</label>
+                <input 
+                  type="text" name="client_name" required maxLength="100" 
+                  className="w-full bg-brand-dark/50 border border-brand-border rounded-lg px-4 py-3 text-brand-light placeholder:text-brand-muted focus:outline-none focus:border-brand-accent transition-colors" 
+                  onChange={handleChange} value={formData.client_name} 
+                />
               </div>
-              <div style={styles.inputGroup}>
-                <label style={styles.label}>Company/Organization</label>
-                <input type="text" name="company_name" maxLength="100" style={styles.input} onChange={handleChange} value={formData.company_name} />
-              </div>
-            </div>
-
-            <div style={styles.formRow}>
-              <div style={styles.inputGroup}>
-                <label style={styles.label}>Email Address *</label>
-                <input type="email" name="email" required style={styles.input} onChange={handleChange} value={formData.email} />
-              </div>
-              <div style={styles.inputGroup}>
-                <label style={styles.label}>Phone Number</label>
-                <input type="tel" name="phone" maxLength="15" style={styles.input} onChange={handleChange} value={formData.phone} />
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-semibold text-brand-muted uppercase tracking-wider">Company/Organization</label>
+                <input 
+                  type="text" name="company_name" maxLength="100" 
+                  className="w-full bg-brand-dark/50 border border-brand-border rounded-lg px-4 py-3 text-brand-light placeholder:text-brand-muted focus:outline-none focus:border-brand-accent transition-colors" 
+                  onChange={handleChange} value={formData.company_name} 
+                />
               </div>
             </div>
 
-            <div style={styles.formRow}>
-              <div style={styles.inputGroup}>
-                <label style={styles.label}>Product Interest</label>
-                <select name="product_interest" style={styles.input} onChange={handleChange} value={formData.product_interest}>
-                  <option value="">Select a product...</option>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-semibold text-brand-muted uppercase tracking-wider">Email Address *</label>
+                <input 
+                  type="email" name="email" required 
+                  className="w-full bg-brand-dark/50 border border-brand-border rounded-lg px-4 py-3 text-brand-light placeholder:text-brand-muted focus:outline-none focus:border-brand-accent transition-colors" 
+                  onChange={handleChange} value={formData.email} 
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-semibold text-brand-muted uppercase tracking-wider">Phone Number</label>
+                <input 
+                  type="tel" name="phone" maxLength="15" 
+                  className="w-full bg-brand-dark/50 border border-brand-border rounded-lg px-4 py-3 text-brand-light placeholder:text-brand-muted focus:outline-none focus:border-brand-accent transition-colors" 
+                  onChange={handleChange} value={formData.phone} 
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-semibold text-brand-muted uppercase tracking-wider">Product Interest</label>
+                <select 
+                  name="product_interest" 
+                  className="w-full bg-brand-dark/50 border border-brand-border rounded-lg px-4 py-3 text-brand-light placeholder:text-brand-muted focus:outline-none focus:border-brand-accent transition-colors appearance-none" 
+                  onChange={handleChange} value={formData.product_interest}
+                >
+                  <option value="" className="text-brand-muted">Select a product...</option>
                   <option value="Injection Moulding Screw">Injection Moulding Screw</option>
                   <option value="Injection Moulding Barrel">Injection Moulding Barrel</option>
                   <option value="Extrusion Screw">Extrusion Screw</option>
@@ -139,10 +167,14 @@ export default function QuoteModal({ onClose, defaultProduct = '' }) {
                   <option value="Custom Order">Custom Order</option>
                 </select>
               </div>
-              <div style={styles.inputGroup}>
-                <label style={styles.label}>Machine Type</label>
-                <select name="machine_type" style={styles.input} onChange={handleChange} value={formData.machine_type}>
-                  <option value="">Select a type...</option>
+              <div className="flex flex-col gap-2">
+                <label className="text-sm font-semibold text-brand-muted uppercase tracking-wider">Machine Type</label>
+                <select 
+                  name="machine_type" 
+                  className="w-full bg-brand-dark/50 border border-brand-border rounded-lg px-4 py-3 text-brand-light placeholder:text-brand-muted focus:outline-none focus:border-brand-accent transition-colors appearance-none" 
+                  onChange={handleChange} value={formData.machine_type}
+                >
+                  <option value="" className="text-brand-muted">Select a type...</option>
                   {MACHINE_TYPES.map(m => (
                     <option key={m.id} value={m.label}>{m.label}</option>
                   ))}
@@ -150,137 +182,34 @@ export default function QuoteModal({ onClose, defaultProduct = '' }) {
               </div>
             </div>
 
-            <div style={styles.inputGroup}>
-              <label style={styles.label}>Quantity Required</label>
-              <input type="text" name="quantity" maxLength="50" style={styles.input} onChange={handleChange} value={formData.quantity} placeholder="e.g. 2 sets" />
+            <div className="flex flex-col gap-2">
+              <label className="text-sm font-semibold text-brand-muted uppercase tracking-wider">Quantity Required</label>
+              <input 
+                type="text" name="quantity" maxLength="50" placeholder="e.g. 2 sets"
+                className="w-full bg-brand-dark/50 border border-brand-border rounded-lg px-4 py-3 text-brand-light placeholder:text-brand-muted focus:outline-none focus:border-brand-accent transition-colors font-mono" 
+                onChange={handleChange} value={formData.quantity} 
+              />
             </div>
 
-            <div style={styles.inputGroup}>
-              <label style={styles.label}>Message / Specific Requirements</label>
-              <textarea name="message" rows="4" maxLength="1000" style={styles.textarea} onChange={handleChange} value={formData.message}></textarea>
+            <div className="flex flex-col gap-2">
+              <label className="text-sm font-semibold text-brand-muted uppercase tracking-wider">Message / Specific Requirements</label>
+              <textarea 
+                name="message" rows="4" maxLength="1000" placeholder="Provide any specifications or special requests..."
+                className="w-full bg-brand-dark/50 border border-brand-border rounded-lg px-4 py-3 text-brand-light placeholder:text-brand-muted focus:outline-none focus:border-brand-accent transition-colors resize-y" 
+                onChange={handleChange} value={formData.message}
+              ></textarea>
             </div>
 
-            <button type="submit" disabled={loading} style={styles.submitBtn}>
-              {loading ? <Loader2 className="spinner" size={20} /> : 'Send Quote Request'}
+            <button 
+              type="submit" 
+              disabled={loading} 
+              className="mt-4 bg-brand-accent text-brand-dark font-semibold px-6 py-4 rounded-lg hover:bg-brand-gold active:scale-95 transition-all duration-200 flex justify-center items-center text-lg shadow-lg shadow-brand-accent/20"
+            >
+              {loading ? <Loader2 className="animate-spin" size={24} /> : 'Send Quote Request'}
             </button>
           </form>
         )}
       </div>
-      <style>{`
-        .spinner { animation: spin 1s linear infinite; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-      `}</style>
     </div>
   )
-}
-
-const styles = {
-  overlay: {
-    position: 'fixed',
-    inset: 0,
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    zIndex: 2000,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: '20px',
-  },
-  modal: {
-    backgroundColor: 'var(--color-white)',
-    width: '100%',
-    maxWidth: '600px',
-    borderRadius: 'var(--radius-lg, 14px)',
-    padding: '32px',
-    position: 'relative',
-    maxHeight: '90vh',
-    overflowY: 'auto',
-    boxShadow: '0 20px 40px rgba(0,0,0,0.2)'
-  },
-  closeBtn: {
-    position: 'absolute',
-    top: '20px',
-    right: '20px',
-    background: 'none',
-    border: 'none',
-    cursor: 'pointer',
-    color: 'var(--color-navy)'
-  },
-  title: {
-    fontFamily: 'var(--font-display)',
-    fontSize: '28px',
-    color: 'var(--color-navy)',
-    marginBottom: '24px',
-    borderBottom: '2px solid var(--color-bg)',
-    paddingBottom: '12px'
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '16px',
-    fontFamily: 'var(--font-body)',
-  },
-  formRow: {
-    display: 'flex',
-    gap: '16px',
-    flexWrap: 'wrap',
-  },
-  inputGroup: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '6px',
-    flex: '1 1 calc(50% - 8px)',
-  },
-  label: {
-    fontSize: '13px',
-    fontWeight: 600,
-    color: 'var(--color-steel)'
-  },
-  input: {
-    padding: '10px 12px',
-    border: '1px solid #DDE1E9',
-    borderRadius: '6px',
-    fontSize: '14px',
-    outline: 'none',
-    fontFamily: 'inherit',
-  },
-  textarea: {
-    padding: '10px 12px',
-    border: '1px solid #DDE1E9',
-    borderRadius: '6px',
-    fontSize: '14px',
-    outline: 'none',
-    resize: 'vertical',
-    fontFamily: 'inherit',
-  },
-  submitBtn: {
-    backgroundColor: 'var(--color-amber)',
-    color: 'var(--color-white)',
-    border: 'none',
-    padding: '14px',
-    borderRadius: '6px',
-    fontSize: '16px',
-    fontWeight: 600,
-    cursor: 'pointer',
-    marginTop: '10px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  errorMsg: {
-    backgroundColor: '#FEE2E2',
-    color: '#B91C1C',
-    padding: '12px',
-    borderRadius: '6px',
-    marginBottom: '20px',
-    fontSize: '14px',
-  },
-  successMsg: {
-    backgroundColor: '#D1FAE5',
-    color: '#047857',
-    padding: '20px',
-    borderRadius: '6px',
-    textAlign: 'center',
-    fontSize: '16px',
-    fontWeight: 500,
-  }
 }
