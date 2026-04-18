@@ -11,11 +11,7 @@ export default function Footer() {
           {/* Company Info */}
           <div>
             <Link to="/" className="flex items-center gap-4 group mb-6 active:scale-95 transition-transform">
-              <KushwahaLogo width={200} height={72} />
-              <div className="flex flex-col">
-                <span className="font-display tracking-wide text-3xl md:text-4xl text-gray-900 dark:text-brand-light group-hover:text-brand-accent transition-colors">KUSHWAHA GROUP</span>
-                <span className="font-mono text-[10px] md:text-xs text-brand-accent uppercase tracking-widest leading-none mt-1">{COMPANY.tagline}</span>
-              </div>
+              <KushwahaLogo width={320} height={163} />
             </Link>
             <p className="text-gray-600 dark:text-brand-muted leading-relaxed mb-8">
               {COMPANY.subTagline}
