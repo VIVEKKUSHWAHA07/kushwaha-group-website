@@ -27,10 +27,11 @@ export default function Products() {
       let query = supabase.from('products').select('*').order('display_order', { ascending: true }).order('created_at', { ascending: false })
       
       if (machineFilter !== 'all') {
-        query = query.eq('machine_type', machineFilter)
+        const searchTerm = machineFilter === 'blow_moulding' ? 'blow' : machineFilter;
+        query = query.ilike('machine_type', `%${searchTerm}%`)
       }
       if (typeFilter !== 'all') {
-        query = query.eq('product_type', typeFilter)
+        query = query.ilike('product_type', `%${typeFilter}%`)
       }
       if (searchQuery) {
         query = query.ilike('name', `%${searchQuery}%`)
