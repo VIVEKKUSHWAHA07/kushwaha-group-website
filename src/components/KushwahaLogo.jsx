@@ -275,23 +275,25 @@ export default function KushwahaLogo({ width = 220, height = 80 }) {
       <g transform="translate(80, 210)">
         <circle cx="0" cy="0" r="10" fill="none" stroke="#00aaff" strokeWidth="2.5" strokeDasharray="15 10" className="arrow-indicator"></circle>
       </g>
-      <g className="name-group">
-        <text x="390" y="370" className="extrude-letter text-title" style={{ animationDelay: '1s' }}>K</text>
-        <text x="419" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.1s' }}>U</text>
-        <text x="450" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.2s' }}>S</text>
-        <text x="479" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.3s' }}>H</text>
-        <text x="508" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.4s' }}>W</text>
-        <text x="547" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.5s' }}>A</text>
-        <text x="576" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.6s' }}>H</text>
-        <text x="605" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.7s' }}>A</text>
-        <text x="650" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.8s' }}>G</text>
-        <text x="681" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.9s' }}>R</text>
-        <text x="710" y="370" className="extrude-letter text-title" style={{ animationDelay: '2s' }}>O</text>
-        <text x="741" y="370" className="extrude-letter text-title" style={{ animationDelay: '2.1s' }}>U</text>
-        <text x="772" y="370" className="extrude-letter text-title" style={{ animationDelay: '2.2s' }}>P</text>
+      <g transform="translate(-503, -242) scale(1.6)">
+        <g className="name-group">
+          <text x="390" y="370" className="extrude-letter text-title" style={{ animationDelay: '1s' }}>K</text>
+          <text x="419" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.1s' }}>U</text>
+          <text x="450" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.2s' }}>S</text>
+          <text x="479" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.3s' }}>H</text>
+          <text x="508" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.4s' }}>W</text>
+          <text x="547" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.5s' }}>A</text>
+          <text x="576" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.6s' }}>H</text>
+          <text x="605" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.7s' }}>A</text>
+          <text x="650" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.8s' }}>G</text>
+          <text x="681" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.9s' }}>R</text>
+          <text x="710" y="370" className="extrude-letter text-title" style={{ animationDelay: '2s' }}>O</text>
+          <text x="741" y="370" className="extrude-letter text-title" style={{ animationDelay: '2.1s' }}>U</text>
+          <text x="772" y="370" className="extrude-letter text-title" style={{ animationDelay: '2.2s' }}>P</text>
+        </g>
+        <text x="595.5" y="405" className="text-tagline fader" textAnchor="middle">Precision Twin Screw &amp; Barrel Solutions</text>
+        <rect x="385.5" y="420" width="420" height="4" fill="#00aaff" rx="2" className="accent-line"></rect>
       </g>
-      <text x="595.5" y="405" className="text-tagline fader" textAnchor="middle">Precision Twin Screw &amp; Barrel Solutions</text>
-      <rect x="385.5" y="420" width="420" height="4" fill="#00aaff" rx="2" className="accent-line"></rect>
     </svg>
   );
 }
