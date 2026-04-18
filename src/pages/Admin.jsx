@@ -61,6 +61,7 @@ function ProductsManager() {
   const [products, setProducts] = useState([])
   const [formOpen, setFormOpen] = useState(false)
   const [editingId, setEditingId] = useState(null)
+  const [draggedProductIdx, setDraggedProductIdx] = useState(null)
   
   const [formData, setFormData] = useState({ name: '', product_type: '', machine_type: '', material: '', diameter_range: '', ld_ratio: '', description: '', is_featured: false })
   const [specs, setSpecs] = useState([{ key: '', value: '' }])
@@ -75,7 +76,7 @@ function ProductsManager() {
 
   const fetchProducts = async () => {
     setTableLoading(true)
-    const { data } = await supabase.from('products').select('*').order('created_at', { ascending: false })
+    const { data } = await supabase.from('products').select('*').order('display_order', { ascending: true }).order('created_at', { ascending: false })
     if (data) setProducts(data)
     setTableLoading(false)
   }
@@ -107,6 +108,43 @@ function ProductsManager() {
     setTableLoading(true)
     await supabase.from('products').delete().eq('id', id)
     fetchProducts()
+  }
+
+  const handleProductDragStart = (e, idx) => {
+    setDraggedProductIdx(idx)
+    e.dataTransfer.effectAllowed = 'move'
+  }
+
+  const handleProductDragOver = (e, idx) => {
+    e.preventDefault()
+    e.dataTransfer.dropEffect = 'move'
+  }
+
+  const handleProductDrop = async (e, idx) => {
+    e.preventDefault()
+    if (draggedProductIdx === null || draggedProductIdx === idx) return
+
+    const newProducts = [...products]
+    const draggedProduct = newProducts[draggedProductIdx]
+    newProducts.splice(draggedProductIdx, 1)
+    newProducts.splice(idx, 0, draggedProduct)
+
+    setProducts(newProducts)
+    setDraggedProductIdx(null)
+
+    try {
+      const updates = newProducts.map((p, i) => ({
+        id: p.id,
+        display_order: i
+      }))
+      
+      // Update one by one
+      await Promise.all(updates.map(u => 
+        supabase.from('products').update({ display_order: u.display_order }).eq('id', u.id)
+      ))
+    } catch (error) {
+      console.error("Error updating order. Make sure 'display_order' column exists in Supabase.", error)
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -337,8 +375,16 @@ function ProductsManager() {
               ) : products.length === 0 ? (
                 <tr><td colSpan="7" className="text-center p-12 text-gray-500 dark:text-brand-muted font-mono">No products in catalogue.</td></tr>
               ) : (
-                products.map(p => (
-                  <tr key={p.id} className="hover:bg-gray-50 dark:hover:bg-brand-steel/30 transition-colors group">
+                products.map((p, idx) => (
+                  <tr 
+                    key={p.id} 
+                    draggable
+                    onDragStart={(e) => handleProductDragStart(e, idx)}
+                    onDragOver={(e) => handleProductDragOver(e, idx)}
+                    onDrop={(e) => handleProductDrop(e, idx)}
+                    className="hover:bg-gray-50 dark:hover:bg-brand-steel/30 transition-colors group cursor-move"
+                    title="Drag row to reorder"
+                  >
                     <td className="p-4 pl-6">
                       {p.image_url ? 
                         <img src={p.image_url.split(',')[0]} width="40" height="40" loading="lazy" className="w-10 h-10 rounded object-cover shadow border border-gray-200 dark:border-brand-border bg-white dark:bg-brand-steel p-0.5" /> 

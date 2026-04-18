@@ -14,6 +14,7 @@ export default function Home() {
       const { data } = await supabase
         .from('products')
         .select('*')
+        .order('display_order', { ascending: true })
         .order('created_at', { ascending: false })
         .limit(3)
       

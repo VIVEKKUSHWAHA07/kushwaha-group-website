@@ -24,7 +24,7 @@ export default function Products() {
   const fetchProducts = async () => {
     setLoading(true)
     try {
-      let query = supabase.from('products').select('*').order('created_at', { ascending: false })
+      let query = supabase.from('products').select('*').order('display_order', { ascending: true }).order('created_at', { ascending: false })
       
       if (machineFilter !== 'all') {
         query = query.eq('machine_type', machineFilter)
