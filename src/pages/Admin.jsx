@@ -255,11 +255,22 @@ function ProductsManager() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-mono uppercase tracking-wider text-gray-500 dark:text-brand-muted mb-2">Product Type *</label>
-                  <input required placeholder="e.g. Screw, Barrel" className="w-full bg-gray-50 dark:bg-brand-steel border border-gray-200 dark:border-brand-border rounded px-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:border-yellow-400" value={formData.product_type} onChange={e => setFormData({...formData, product_type: e.target.value})} />
+                  <select required className="w-full bg-gray-50 dark:bg-brand-steel border border-gray-200 dark:border-brand-border rounded px-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:border-yellow-400" value={formData.product_type} onChange={e => setFormData({...formData, product_type: e.target.value})}>
+                    <option value="" disabled>Select Product Type</option>
+                    <option value="screw">Screw</option>
+                    <option value="barrel">Barrel</option>
+                    <option value="other">Other / Custom</option>
+                  </select>
                 </div>
                  <div>
                   <label className="block text-xs font-mono uppercase tracking-wider text-gray-500 dark:text-brand-muted mb-2">Machine Type *</label>
-                  <input required placeholder="e.g. Injection, Extrusion" className="w-full bg-gray-50 dark:bg-brand-steel border border-gray-200 dark:border-brand-border rounded px-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:border-yellow-400" value={formData.machine_type} onChange={e => setFormData({...formData, machine_type: e.target.value})} />
+                  <select required className="w-full bg-gray-50 dark:bg-brand-steel border border-gray-200 dark:border-brand-border rounded px-4 py-3 text-gray-900 dark:text-white focus:outline-none focus:border-yellow-400" value={formData.machine_type} onChange={e => setFormData({...formData, machine_type: e.target.value})}>
+                    <option value="" disabled>Select Machine Type</option>
+                    <option value="injection">Injection</option>
+                    <option value="extrusion">Extrusion</option>
+                    <option value="blow_moulding">Blow Moulding</option>
+                    <option value="custom">Custom</option>
+                  </select>
                 </div>
               </div>
             </div>
