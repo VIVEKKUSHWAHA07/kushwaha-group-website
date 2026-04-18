@@ -64,8 +64,8 @@ function ProductsManager() {
   
   const [formData, setFormData] = useState({ name: '', product_type: '', machine_type: '', material: '', diameter_range: '', ld_ratio: '', description: '', is_featured: false })
   const [specs, setSpecs] = useState([{ key: '', value: '' }])
-  const [file, setFile] = useState(null)
-  const [existingImage, setExistingImage] = useState('')
+  const [files, setFiles] = useState([])
+  const [existingImages, setExistingImages] = useState([])
   
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -92,8 +92,8 @@ function ProductsManager() {
       description: p.description || '', 
       is_featured: p.is_featured || false 
     })
-    setExistingImage(p.image_url || '')
-    setFile(null)
+    setExistingImages(p.image_url ? p.image_url.split(',') : [])
+    setFiles([])
     
     let specsArr = [{ key: '', value: '' }]
     if (p.specifications && Object.keys(p.specifications).length > 0) {
@@ -116,18 +116,20 @@ function ProductsManager() {
     setError('')
     
     try {
-      let finalImageUrl = existingImage
+      let finalImageUrls = [...existingImages]
 
-      if (file) {
-        const fileExt = file.name.split('.').pop()
-        const safeName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_')
-        const fileName = `public/${Date.now()}_${safeName}`
-        
-        const { error: uploadError } = await supabase.storage.from('product-images').upload(fileName, file)
-        if (uploadError) throw uploadError
-        
-        const { data: { publicUrl } } = supabase.storage.from('product-images').getPublicUrl(fileName)
-        finalImageUrl = publicUrl
+      if (files && files.length > 0) {
+        for (const file of files) {
+          const fileExt = file.name.split('.').pop()
+          const safeName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_')
+          const fileName = `public/${Date.now()}_${safeName}`
+          
+          const { error: uploadError } = await supabase.storage.from('product-images').upload(fileName, file)
+          if (uploadError) throw uploadError
+          
+          const { data: { publicUrl } } = supabase.storage.from('product-images').getPublicUrl(fileName)
+          finalImageUrls.push(publicUrl)
+        }
       }
       
       let specsObj = {}
@@ -137,7 +139,7 @@ function ProductsManager() {
         }
       })
       
-      const payload = { ...formData, specifications: specsObj, image_url: finalImageUrl }
+      const payload = { ...formData, specifications: specsObj, image_url: finalImageUrls.join(',') }
       
       if (editingId) {
         const { error: updateErr } = await supabase.from('products').update(payload).eq('id', editingId)
@@ -170,7 +172,7 @@ function ProductsManager() {
         <div className="flex justify-between items-center bg-white dark:bg-brand-card p-6 rounded-xl border border-gray-200 dark:border-brand-border transition-colors shadow-sm dark:shadow-none">
           <h2 className="font-display text-2xl sm:text-3xl text-gray-900 dark:text-white uppercase tracking-wider">Product Catalogue</h2>
           <button onClick={() => {
-            setEditingId(null); setFile(null); setExistingImage(''); 
+            setEditingId(null); setFiles([]); setExistingImages([]); 
             setSpecs([{ key: '', value: '' }]);
             setFormData({ name: '', product_type: '', machine_type: '', material: '', diameter_range: '', ld_ratio: '', description: '', is_featured: false })
             setFormOpen(true)
@@ -246,9 +248,22 @@ function ProductsManager() {
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 bg-gray-50 dark:bg-brand-steel/50 p-6 rounded-lg border border-gray-200 dark:border-brand-border transition-colors">
                <div className="flex-1 w-full">
                  <label className="block text-xs font-mono uppercase tracking-wider text-gray-500 dark:text-brand-muted mb-2">Image Upload</label>
-                 <input type="file" accept="image/*" className="w-full text-sm text-gray-600 dark:text-brand-muted file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-yellow-400 file:text-gray-900 hover:file:bg-yellow-500 cursor-pointer" onChange={e => setFile(e.target.files[0])}/>
+                 <input type="file" multiple accept="image/*" className="w-full text-sm text-gray-600 dark:text-brand-muted file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-yellow-400 file:text-gray-900 hover:file:bg-yellow-500 cursor-pointer" onChange={e => setFiles(Array.from(e.target.files))}/>
                </div>
-               {existingImage && <img src={existingImage} width="64" height="64" loading="lazy" className="h-16 w-16 object-contain rounded shadow border border-gray-200 dark:border-brand-border bg-white dark:bg-brand-steel p-1" alt="Current"/>}
+               <div className="flex gap-2 flex-wrap">
+                 {existingImages.map((img, i) => (
+                   <div key={i} className="relative group">
+                     <img src={img} width="64" height="64" loading="lazy" className="h-16 w-16 object-cover rounded shadow border border-gray-200 dark:border-brand-border bg-white dark:bg-brand-steel p-1" alt="Current"/>
+                     <button type="button" onClick={() => setExistingImages(existingImages.filter((_, idx) => idx !== i))} className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 shadow hover:bg-red-600 hidden group-hover:block"><MinusCircle size={12}/></button>
+                   </div>
+                 ))}
+                 {files.map((f, i) => (
+                   <div key={`new-${i}`} className="h-16 w-16 flex items-center justify-center rounded shadow border border-yellow-400 bg-yellow-50 text-xs text-center p-1 break-all overflow-hidden relative group">
+                     {f.name}
+                     <button type="button" onClick={() => setFiles(files.filter((_, idx) => idx !== i))} className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 shadow hover:bg-red-600 hidden group-hover:block"><MinusCircle size={12}/></button>
+                   </div>
+                 ))}
+               </div>
             </div>
 
             <label className="flex items-center gap-3 cursor-pointer w-fit p-2 rounded hover:bg-gray-50 dark:hover:bg-brand-steel/30 transition-colors">
@@ -292,7 +307,7 @@ function ProductsManager() {
                   <tr key={p.id} className="hover:bg-gray-50 dark:hover:bg-brand-steel/30 transition-colors group">
                     <td className="p-4 pl-6">
                       {p.image_url ? 
-                        <img src={p.image_url} width="40" height="40" loading="lazy" className="w-10 h-10 rounded object-contain shadow border border-gray-200 dark:border-brand-border bg-white dark:bg-brand-steel p-0.5" /> 
+                        <img src={p.image_url.split(',')[0]} width="40" height="40" loading="lazy" className="w-10 h-10 rounded object-cover shadow border border-gray-200 dark:border-brand-border bg-white dark:bg-brand-steel p-0.5" /> 
                       : 
                         <div className="w-10 h-10 rounded bg-gray-100 dark:bg-brand-steel border border-gray-200 dark:border-brand-border flex items-center justify-center text-gray-400 dark:text-brand-muted"><ImageIcon size={16}/></div>
                       }

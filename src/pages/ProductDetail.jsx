@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { Settings, CheckCircle2 } from 'lucide-react'
+import { Settings, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import QuoteModal from '../components/QuoteModal'
 import ErrorBoundary from '../components/ErrorBoundary'
@@ -11,6 +11,20 @@ export default function ProductDetail() {
   const [loading, setLoading] = useState(true)
   const [quoteOpen, setQuoteOpen] = useState(false)
   const [error, setError] = useState(false)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
+  useEffect(() => {
+    // We only want to set up the auto-slider if product is loaded and has multiple images
+    if (product && product.image_url) {
+      const imgs = product.image_url.split(',')
+      if (imgs.length > 1) {
+        const timer = setInterval(() => {
+          setCurrentImageIndex((prev) => (prev + 1) % imgs.length)
+        }, 5000)
+        return () => clearInterval(timer)
+      }
+    }
+  }, [product])
 
   useEffect(() => {
     async function fetchProduct() {
@@ -48,7 +62,8 @@ export default function ProductDetail() {
     </div>
   )
 
-  const hasImage = Boolean(product.image_url)
+  const images = product.image_url ? product.image_url.split(',') : []
+  const hasImage = images.length > 0
   const specs = typeof product.specifications === 'string' 
     ? JSON.parse(product.specifications || '{}') 
     : (product.specifications || {})
@@ -80,27 +95,33 @@ export default function ProductDetail() {
             {/* Main Visual */}
             <div className="animate-fade-up opacity-0 lg:sticky lg:top-28 lg:h-fit" style={{ animationDelay: '0.1s' }}>
               <div className="bg-gray-50 dark:bg-brand-card rounded-2xl border border-gray-200 dark:border-brand-border overflow-hidden p-2 shadow-2xl shadow-brand-accent/5">
-                <div className="aspect-[4/3] relative rounded-xl overflow-hidden bg-gray-100 dark:bg-brand-steel flex items-center justify-center">
+                <div className="aspect-[4/3] relative rounded-xl overflow-hidden bg-gray-100 dark:bg-brand-steel flex items-center justify-center group/slider">
                   {hasImage ? (
                     <>
-                      <img 
-                        src={product.image_url} 
-                        alt={product.name} 
-                        loading="lazy"
-                        width="800"
-                        height="600"
-                        className="w-full h-full object-contain bg-white dark:bg-brand-steel" 
-                        onError={(e) => { 
-                          e.target.style.display = 'none'; 
-                          if (e.target.nextSibling && e.target.nextSibling.style) {
-                            e.target.nextSibling.style.display = 'flex';
-                          }
-                        }} 
-                      />
-                      <div className="hidden w-full h-full items-center justify-center opacity-30 flex-col gap-2" style={{ display: 'none' }}>
-                        <Settings size={60} className="text-gray-400 dark:text-brand-muted" />
-                        <p className="font-mono text-xs uppercase tracking-widest text-gray-500 dark:text-brand-muted">Image Unavailable</p>
+                      <div className="flex w-full h-full transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}>
+                        {images.map((img, i) => (
+                          <img 
+                            key={i}
+                            src={img} 
+                            alt={`${product.name} - ${i + 1}`} 
+                            loading={i === 0 ? "eager" : "lazy"}
+                            className="w-full h-full object-contain bg-white dark:bg-brand-steel flex-shrink-0" 
+                            onError={(e) => { 
+                              e.target.style.display = 'none'; 
+                              if (e.target.nextSibling && e.target.nextSibling.style) {
+                                e.target.nextSibling.style.display = 'flex';
+                              }
+                            }} 
+                          />
+                        ))}
                       </div>
+                      
+                      {images.length > 1 && (
+                        <>
+                          <button onClick={() => setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length)} className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 p-2 rounded-full opacity-0 group-hover/slider:opacity-100 transition-opacity shadow-md z-10"><ChevronLeft size={24}/></button>
+                          <button onClick={() => setCurrentImageIndex((prev) => (prev + 1) % images.length)} className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-gray-800 p-2 rounded-full opacity-0 group-hover/slider:opacity-100 transition-opacity shadow-md z-10"><ChevronRight size={24}/></button>
+                        </>
+                      )}
                     </>
                   ) : (
                     <div className="text-center opacity-30">
@@ -109,6 +130,21 @@ export default function ProductDetail() {
                     </div>
                   )}
                 </div>
+                
+                {/* Thumbnails if multiple images */}
+                {images.length > 1 && (
+                  <div className="flex gap-2 mt-2 px-1 overflow-x-auto pb-2 custom-scrollbar">
+                    {images.map((img, i) => (
+                      <button 
+                        key={i} 
+                        onClick={() => setCurrentImageIndex(i)}
+                        className={`relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden border-2 transition-colors ${i === currentImageIndex ? 'border-brand-accent' : 'border-transparent hover:border-brand-accent/50'}`}
+                      >
+                        <img src={img} className="w-full h-full object-cover bg-white dark:bg-brand-steel" alt={`Thumbnail ${i+1}`} />
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
 
