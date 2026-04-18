@@ -29,7 +29,7 @@ export default function Navbar() {
           {/* Brand */}
           <NavLink to="/" className="flex items-center gap-3 flex-shrink-0 group active:scale-95 transition-transform">
             <div className="flex items-center">
-              <KushwahaLogo width={320} height={163} />
+              <KushwahaLogo className="w-56 md:w-[320px] h-auto" width="100%" height="100%" />
             </div>
           </NavLink>
 

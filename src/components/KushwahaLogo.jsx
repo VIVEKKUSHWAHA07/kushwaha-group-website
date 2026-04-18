@@ -1,6 +1,6 @@
-export default function KushwahaLogo({ width = 220, height = 80 }) {
+export default function KushwahaLogo({ width = 220, height = 80, className = "" }) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460" width={width} height={height} preserveAspectRatio="xMidYMid meet">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460" width={width} height={height} className={className} preserveAspectRatio="xMidYMid meet">
       <defs>
         <style dangerouslySetInnerHTML={{ __html: `
             @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani:wght@600&display=swap');

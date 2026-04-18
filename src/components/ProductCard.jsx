@@ -61,12 +61,12 @@ export default function ProductCard({ product }) {
             <Settings size={48} className="text-gray-400 dark:text-brand-muted opacity-50" />
           </div>
         )}
-        <div className="absolute top-4 left-4 bg-white/90 dark:bg-brand-dark/90 text-brand-accent border border-brand-accent/30 px-3 py-1 rounded shadow-md font-mono text-[10px] uppercase tracking-wider backdrop-blur-sm z-10">
+        <div className="absolute top-2 left-2 md:top-4 md:left-4 bg-white/90 dark:bg-brand-dark/90 text-brand-accent border border-brand-accent/30 px-2 md:px-3 py-1 rounded shadow-md font-mono text-[9px] md:text-[10px] uppercase tracking-wider backdrop-blur-sm z-10">
           {product.machine_type.replace('_', ' ')}
         </div>
       </Link>
 
-      <div className="p-6 flex flex-col flex-grow">
+      <div className="p-4 md:p-6 flex flex-col flex-grow">
         <Link to={`/products/${product.id}`} className="mb-4">
           <h3 className="font-display text-2xl text-gray-900 dark:text-white group-hover:text-brand-accent transition-colors leading-tight">{product.name}</h3>
         </Link>

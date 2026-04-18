@@ -10,8 +10,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-16">
           {/* Company Info */}
           <div>
-            <Link to="/" className="flex items-center gap-4 group mb-6 active:scale-95 transition-transform">
-              <KushwahaLogo width={320} height={163} />
+            <Link to="/" className="flex items-center gap-4 group mb-6 active:scale-95 transition-transform w-fit">
+              <KushwahaLogo className="w-64 md:w-[320px] h-auto" width="100%" height="100%" />
             </Link>
             <p className="text-gray-600 dark:text-brand-muted leading-relaxed mb-8">
               {COMPANY.subTagline}

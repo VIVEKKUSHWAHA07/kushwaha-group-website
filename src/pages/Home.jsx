@@ -41,7 +41,7 @@ export default function Home() {
               </span>
             </div>
             
-            <h1 className="font-display text-7xl md:text-8xl lg:text-9xl text-gray-900 dark:text-white leading-[0.85] animate-fade-up opacity-0 text-left" style={{ animationDelay: '0.2s' }}>
+            <h1 className="font-display text-6xl md:text-8xl lg:text-9xl text-gray-900 dark:text-white leading-[0.95] md:leading-[0.85] animate-fade-up opacity-0 text-left" style={{ animationDelay: '0.2s' }}>
               PRECISION<br/>
               <span className="text-brand-accent">SCREWS</span> &<br/>
               BARRELS
@@ -51,11 +51,11 @@ export default function Home() {
               Manufacturers of high-performance components engineered for durability and maximum output. We build for Injection, Extrusion, and Blow Moulding machines.
             </p>
             
-            <div className="flex flex-wrap items-center gap-4 animate-fade-up opacity-0 mt-4" style={{ animationDelay: '0.4s' }}>
-              <Link to="/products" className="bg-brand-accent text-brand-dark font-display tracking-wide text-xl px-8 py-4 rounded hover:bg-brand-gold active:scale-95 transition-all duration-200">
+            <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-4 animate-fade-up opacity-0 mt-4 w-full sm:w-auto" style={{ animationDelay: '0.4s' }}>
+              <Link to="/products" className="bg-brand-accent text-brand-dark font-display tracking-wide text-lg md:text-xl px-6 py-4 rounded hover:bg-brand-gold active:scale-95 transition-all duration-200 text-center">
                 View Catalogue
               </Link>
-              <Link to="/contact" className="border border-gray-300 dark:border-brand-border text-gray-900 dark:text-brand-light font-display tracking-wide text-xl px-8 py-4 rounded hover:border-brand-accent dark:hover:border-brand-accent hover:text-brand-accent dark:hover:text-brand-accent active:scale-95 transition-all duration-200">
+              <Link to="/contact" className="border border-gray-300 dark:border-brand-border text-gray-900 dark:text-brand-light font-display tracking-wide text-lg md:text-xl px-6 py-4 rounded hover:border-brand-accent dark:hover:border-brand-accent hover:text-brand-accent dark:hover:text-brand-accent active:scale-95 transition-all duration-200 text-center">
                 Request Quote
               </Link>
             </div>
@@ -82,8 +82,8 @@ export default function Home() {
       {/* STATS BAR */}
       <section className="bg-gray-50 dark:bg-brand-steel border-y border-gray-200 dark:border-brand-border py-12 transition-colors">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-gray-200 dark:divide-brand-border/20">
-            <div className="flex flex-col flex-1 items-center justify-center text-center px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-y-10 gap-x-4 md:gap-8 md:divide-x divide-gray-200 dark:divide-brand-border/20">
+            <div className="flex flex-col flex-1 items-center justify-center text-center px-2 md:px-4">
               <div className="font-display text-5xl md:text-6xl text-brand-accent mb-2">15+</div>
               <div className="font-mono text-xs text-gray-800 dark:text-brand-light uppercase tracking-widest">Years Experience</div>
             </div>
@@ -106,9 +106,9 @@ export default function Home() {
       {/* FEATURED PRODUCTS */}
       <section className="py-24 px-6 md:px-12 lg:px-20 bg-white dark:bg-brand-dark transition-colors">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-gray-200 dark:border-brand-border pb-6">
-            <h2 className="font-display text-5xl md:text-6xl text-gray-900 dark:text-white">Featured Products</h2>
-            <Link to="/products" className="text-brand-accent hover:text-brand-gold font-mono uppercase tracking-widest text-sm mb-2 flex items-center gap-2 group transition-colors">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 md:mb-12 border-b border-gray-200 dark:border-brand-border pb-6 gap-4">
+            <h2 className="font-display text-4xl sm:text-5xl md:text-6xl text-gray-900 dark:text-white leading-tight">Featured Products</h2>
+            <Link to="/products" className="text-brand-accent hover:text-brand-gold font-mono uppercase tracking-widest text-sm mb-0 md:mb-2 flex items-center gap-2 group transition-colors">
               View All Catalogue <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
@@ -154,10 +154,10 @@ export default function Home() {
       <section className="bg-gray-50 dark:bg-brand-card py-24 border-y border-gray-200 dark:border-brand-border relative overflow-hidden transition-colors">
         <div className="absolute inset-0 opacity-5" style={{ background: 'radial-gradient(circle at center, #E8C547 0%, transparent 60%)' }}></div>
         <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-          <h2 className="font-display text-5xl md:text-7xl text-gray-900 dark:text-white mb-8 uppercase leading-none">
-            Built To Your Exact<br/>Specifications
+          <h2 className="font-display text-4xl sm:text-5xl md:text-7xl text-gray-900 dark:text-white mb-6 md:mb-8 uppercase leading-[1.1] md:leading-none">
+            Built To Your Exact<br className="hidden sm:block" /> Specifications
           </h2>
-          <p className="font-body text-gray-600 dark:text-brand-muted mb-10 max-w-2xl mx-auto text-lg">
+          <p className="font-body text-gray-600 dark:text-brand-muted mb-8 md:mb-10 max-w-2xl mx-auto text-base md:text-lg">
             Whether you need a standard replacement or a highly customized screw profile for specialized polymers, our engineering team is ready to deliver.
           </p>
           <button 
