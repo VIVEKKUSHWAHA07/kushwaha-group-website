@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Phone, Mail, MapPin } from 'lucide-react'
 import { COMPANY, NAV_LINKS } from '../lib/constants'
+import KushwahaLogo from './KushwahaLogo'
 
 export default function Footer() {
   return (
@@ -10,7 +11,7 @@ export default function Footer() {
           {/* Company Info */}
           <div>
             <Link to="/" className="flex items-center gap-4 group mb-6 active:scale-95 transition-transform">
-              <img src="/logo.svg" alt="Kushwaha Group Logo" width="56" height="56" loading="lazy" className="w-14 h-14 object-contain group-hover:scale-105 transition-transform" />
+              <KushwahaLogo width={200} height={72} />
               <div className="flex flex-col">
                 <span className="font-display tracking-wide text-3xl md:text-4xl text-gray-900 dark:text-brand-light group-hover:text-brand-accent transition-colors">KUSHWAHA GROUP</span>
                 <span className="font-mono text-[10px] md:text-xs text-brand-accent uppercase tracking-widest leading-none mt-1">{COMPANY.tagline}</span>

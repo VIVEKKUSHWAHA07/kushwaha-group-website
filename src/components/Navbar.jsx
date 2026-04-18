@@ -4,6 +4,7 @@ import { Menu, X, Phone, Sun, Moon } from 'lucide-react'
 import { COMPANY } from '../lib/constants'
 import QuoteModal from './QuoteModal'
 import { useTheme } from '../context/ThemeContext'
+import KushwahaLogo from './KushwahaLogo'
 
 const navLinks = [
   { to: '/', label: 'Home' },
@@ -27,7 +28,9 @@ export default function Navbar() {
 
           {/* Brand */}
           <NavLink to="/" className="flex items-center gap-3 flex-shrink-0 group active:scale-95 transition-transform">
-            <img src="/logo.svg" alt="Kushwaha Group Logo" width="40" height="40" className="w-10 h-10 object-contain group-hover:scale-105 transition-transform" />
+            <div style={{ overflow: 'hidden', display: 'flex', alignItems: 'center' }}>
+              <KushwahaLogo width={200} height={72} />
+            </div>
             <div className="flex flex-col">
               <span className="font-display tracking-wide text-2xl md:text-3xl text-brand-accent group-hover:text-brand-gold transition-colors">KUSHWAHA GROUP</span>
               <span className="font-mono text-[9px] md:text-[10px] text-brand-muted uppercase tracking-widest">{COMPANY.tagline}</span>
