@@ -64,8 +64,8 @@ function ProductsManager() {
   
   const [formData, setFormData] = useState({ name: '', product_type: '', machine_type: '', material: '', diameter_range: '', ld_ratio: '', description: '', is_featured: false })
   const [specs, setSpecs] = useState([{ key: '', value: '' }])
-  const [files, setFiles] = useState([])
-  const [existingImages, setExistingImages] = useState([])
+  const [images, setImages] = useState([])
+  const [draggedIdx, setDraggedIdx] = useState(null)
   
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -92,8 +92,7 @@ function ProductsManager() {
       description: p.description || '', 
       is_featured: p.is_featured || false 
     })
-    setExistingImages(p.image_url ? p.image_url.split(',') : [])
-    setFiles([])
+    setImages(p.image_url ? p.image_url.split(',').map((url, i) => ({ id: `existing-${i}`, type: 'existing', url })) : [])
     
     let specsArr = [{ key: '', value: '' }]
     if (p.specifications && Object.keys(p.specifications).length > 0) {
@@ -116,11 +115,13 @@ function ProductsManager() {
     setError('')
     
     try {
-      let finalImageUrls = [...existingImages]
+      let finalImageUrls = []
 
-      if (files && files.length > 0) {
-        for (const file of files) {
-          const fileExt = file.name.split('.').pop()
+      for (const img of images) {
+        if (img.type === 'existing') {
+          finalImageUrls.push(img.url)
+        } else if (img.type === 'new') {
+          const file = img.file
           const safeName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_')
           const fileName = `public/${Date.now()}_${safeName}`
           
@@ -158,6 +159,25 @@ function ProductsManager() {
     }
   }
 
+  const handleDragStart = (e, idx) => {
+    setDraggedIdx(idx)
+    e.dataTransfer.effectAllowed = 'move'
+  }
+  const handleDragOver = (e, idx) => {
+    e.preventDefault()
+    e.dataTransfer.dropEffect = 'move'
+  }
+  const handleDrop = (e, idx) => {
+    e.preventDefault()
+    if (draggedIdx === null || draggedIdx === idx) return
+    const newImages = [...images]
+    const draggedImg = newImages[draggedIdx]
+    newImages.splice(draggedIdx, 1)
+    newImages.splice(idx, 0, draggedImg)
+    setImages(newImages)
+    setDraggedIdx(null)
+  }
+
   const addSpecRow = () => setSpecs([...specs, { key: '', value: '' }])
   const removeSpecRow = (index) => setSpecs(specs.filter((_, i) => i !== index))
   const updateSpec = (index, field, val) => {
@@ -172,7 +192,7 @@ function ProductsManager() {
         <div className="flex justify-between items-center bg-white dark:bg-brand-card p-6 rounded-xl border border-gray-200 dark:border-brand-border transition-colors shadow-sm dark:shadow-none">
           <h2 className="font-display text-2xl sm:text-3xl text-gray-900 dark:text-white uppercase tracking-wider">Product Catalogue</h2>
           <button onClick={() => {
-            setEditingId(null); setFiles([]); setExistingImages([]); 
+            setEditingId(null); setImages([]); 
             setSpecs([{ key: '', value: '' }]);
             setFormData({ name: '', product_type: '', machine_type: '', material: '', diameter_range: '', ld_ratio: '', description: '', is_featured: false })
             setFormOpen(true)
@@ -248,19 +268,33 @@ function ProductsManager() {
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 bg-gray-50 dark:bg-brand-steel/50 p-6 rounded-lg border border-gray-200 dark:border-brand-border transition-colors">
                <div className="flex-1 w-full">
                  <label className="block text-xs font-mono uppercase tracking-wider text-gray-500 dark:text-brand-muted mb-2">Image Upload</label>
-                 <input type="file" multiple accept="image/*" className="w-full text-sm text-gray-600 dark:text-brand-muted file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-yellow-400 file:text-gray-900 hover:file:bg-yellow-500 cursor-pointer" onChange={e => setFiles(Array.from(e.target.files))}/>
+                 <input type="file" multiple accept="image/*" className="w-full text-sm text-gray-600 dark:text-brand-muted file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-yellow-400 file:text-gray-900 hover:file:bg-yellow-500 cursor-pointer" onChange={e => {
+                   const newImgs = Array.from(e.target.files).map((file, i) => ({
+                     id: `new-${Date.now()}-${i}`,
+                     type: 'new',
+                     file,
+                     url: URL.createObjectURL(file)
+                   }))
+                   setImages(prev => [...prev, ...newImgs])
+                   e.target.value = ''
+                 }}/>
                </div>
-               <div className="flex gap-2 flex-wrap">
-                 {existingImages.map((img, i) => (
-                   <div key={i} className="relative group">
-                     <img src={img} width="64" height="64" loading="lazy" className="h-16 w-16 object-cover rounded shadow border border-gray-200 dark:border-brand-border bg-white dark:bg-brand-steel p-1" alt="Current"/>
-                     <button type="button" onClick={() => setExistingImages(existingImages.filter((_, idx) => idx !== i))} className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 shadow hover:bg-red-600 hidden group-hover:block"><MinusCircle size={12}/></button>
-                   </div>
-                 ))}
-                 {files.map((f, i) => (
-                   <div key={`new-${i}`} className="h-16 w-16 flex items-center justify-center rounded shadow border border-yellow-400 bg-yellow-50 text-xs text-center p-1 break-all overflow-hidden relative group">
-                     {f.name}
-                     <button type="button" onClick={() => setFiles(files.filter((_, idx) => idx !== i))} className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 shadow hover:bg-red-600 hidden group-hover:block"><MinusCircle size={12}/></button>
+               <div className="flex gap-3 flex-wrap">
+                 {images.map((img, i) => (
+                   <div 
+                     key={img.id} 
+                     draggable
+                     onDragStart={(e) => handleDragStart(e, i)}
+                     onDragOver={(e) => handleDragOver(e, i)}
+                     onDrop={(e) => handleDrop(e, i)}
+                     className="relative group cursor-move hover:-translate-y-1 transition-transform"
+                     title="Drag to reorder"
+                   >
+                     <img src={img.url} width="64" height="64" className="h-16 w-16 object-cover rounded shadow border border-gray-200 dark:border-brand-border bg-white dark:bg-brand-steel p-1" alt="Preview"/>
+                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center rounded transition-opacity pointer-events-none">
+                       <span className="text-white text-[9px] uppercase font-bold tracking-wider">Move</span>
+                     </div>
+                     <button type="button" onClick={() => setImages(images.filter((_, idx) => idx !== i))} className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 shadow hover:bg-red-600 hidden group-hover:block z-10"><MinusCircle size={12}/></button>
                    </div>
                  ))}
                </div>
