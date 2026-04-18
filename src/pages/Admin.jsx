@@ -248,7 +248,7 @@ function ProductsManager() {
                  <label className="block text-xs font-mono uppercase tracking-wider text-gray-500 dark:text-brand-muted mb-2">Image Upload</label>
                  <input type="file" accept="image/*" className="w-full text-sm text-gray-600 dark:text-brand-muted file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-yellow-400 file:text-gray-900 hover:file:bg-yellow-500 cursor-pointer" onChange={e => setFile(e.target.files[0])}/>
                </div>
-               {existingImage && <img src={existingImage} className="h-16 w-16 object-contain rounded shadow border border-gray-200 dark:border-brand-border bg-white dark:bg-brand-steel p-1" alt="Current"/>}
+               {existingImage && <img src={existingImage} width="64" height="64" loading="lazy" className="h-16 w-16 object-contain rounded shadow border border-gray-200 dark:border-brand-border bg-white dark:bg-brand-steel p-1" alt="Current"/>}
             </div>
 
             <label className="flex items-center gap-3 cursor-pointer w-fit p-2 rounded hover:bg-gray-50 dark:hover:bg-brand-steel/30 transition-colors">
@@ -292,7 +292,7 @@ function ProductsManager() {
                   <tr key={p.id} className="hover:bg-gray-50 dark:hover:bg-brand-steel/30 transition-colors group">
                     <td className="p-4 pl-6">
                       {p.image_url ? 
-                        <img src={p.image_url} className="w-10 h-10 rounded object-contain shadow border border-gray-200 dark:border-brand-border bg-white dark:bg-brand-steel p-0.5" /> 
+                        <img src={p.image_url} width="40" height="40" loading="lazy" className="w-10 h-10 rounded object-contain shadow border border-gray-200 dark:border-brand-border bg-white dark:bg-brand-steel p-0.5" /> 
                       : 
                         <div className="w-10 h-10 rounded bg-gray-100 dark:bg-brand-steel border border-gray-200 dark:border-brand-border flex items-center justify-center text-gray-400 dark:text-brand-muted"><ImageIcon size={16}/></div>
                       }

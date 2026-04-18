@@ -86,7 +86,9 @@ export default function ProductDetail() {
                       <img 
                         src={product.image_url} 
                         alt={product.name} 
-                        loading="lazy" 
+                        loading="lazy"
+                        width="800"
+                        height="600"
                         className="w-full h-full object-contain bg-white dark:bg-brand-steel" 
                         onError={(e) => { 
                           e.target.style.display = 'none'; 

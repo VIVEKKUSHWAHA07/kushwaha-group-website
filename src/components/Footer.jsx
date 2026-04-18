@@ -9,8 +9,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-16">
           {/* Company Info */}
           <div>
-            <Link to="/" className="flex items-center gap-4 group mb-6">
-              <img src="/logo.svg" alt="Kushwaha Group Logo" className="w-14 h-14 object-contain group-hover:scale-105 transition-transform" />
+            <Link to="/" className="flex items-center gap-4 group mb-6 active:scale-95 transition-transform">
+              <img src="/logo.svg" alt="Kushwaha Group Logo" width="56" height="56" loading="lazy" className="w-14 h-14 object-contain group-hover:scale-105 transition-transform" />
               <div className="flex flex-col">
                 <span className="font-display tracking-wide text-3xl md:text-4xl text-gray-900 dark:text-brand-light group-hover:text-brand-accent transition-colors">KUSHWAHA GROUP</span>
                 <span className="font-mono text-[10px] md:text-xs text-brand-accent uppercase tracking-widest leading-none mt-1">{COMPANY.tagline}</span>

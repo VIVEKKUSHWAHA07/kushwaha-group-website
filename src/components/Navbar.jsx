@@ -26,8 +26,8 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
 
           {/* Brand */}
-          <NavLink to="/" className="flex items-center gap-3 flex-shrink-0 group">
-            <img src="/logo.svg" alt="Kushwaha Group Logo" className="w-10 h-10 object-contain group-hover:scale-105 transition-transform" />
+          <NavLink to="/" className="flex items-center gap-3 flex-shrink-0 group active:scale-95 transition-transform">
+            <img src="/logo.svg" alt="Kushwaha Group Logo" width="40" height="40" className="w-10 h-10 object-contain group-hover:scale-105 transition-transform" />
             <div className="flex flex-col">
               <span className="font-display tracking-wide text-2xl md:text-3xl text-brand-accent group-hover:text-brand-gold transition-colors">KUSHWAHA GROUP</span>
               <span className="font-mono text-[9px] md:text-[10px] text-brand-muted uppercase tracking-widest">{COMPANY.tagline}</span>

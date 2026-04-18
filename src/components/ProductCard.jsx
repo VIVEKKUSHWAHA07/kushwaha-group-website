@@ -11,8 +11,10 @@ export default function ProductCard({ product }) {
           <img 
             src={product.image_url} 
             alt={product.name} 
-            loading="lazy" 
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+            loading="lazy"
+            width="400"
+            height="225"
+            className="w-full h-full object-cover md:group-hover:scale-105 group-active:scale-95 transition-transform duration-500" 
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">

@@ -5,7 +5,18 @@
 @tailwind utilities;
 
 @layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
   body {
     @apply bg-brand-dark text-brand-light font-body;
+  }
+  
+  button, 
+  a, 
+  [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
   }
 }
