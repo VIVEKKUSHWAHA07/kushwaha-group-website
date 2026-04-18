@@ -8,14 +8,14 @@ export default function KushwahaLogo({ width = 220, height = 80 }) {
             .text-title {
               font-family: 'Orbitron', sans-serif;
               font-size: 38px;
-              fill: #1a1a2e;
+              fill: #ffffff;
               font-weight: 700;
               letter-spacing: 3px;
             }
             .text-tagline {
               font-family: 'Rajdhani', sans-serif;
               font-size: 20px;
-              fill: #00aaff;
+              fill: #F5C518;
               font-weight: 600;
               letter-spacing: 3px;
               text-transform: uppercase;
@@ -56,8 +56,8 @@ export default function KushwahaLogo({ width = 220, height = 80 }) {
             }
             
             @keyframes pulseGlow {
-              0%, 100% { filter: drop-shadow(0 0 2px rgba(0, 170, 255, 0)); }
-              50% { filter: drop-shadow(0 0 14px rgba(0, 170, 255, 0.8)); }
+              0%, 100% { filter: drop-shadow(0 0 2px rgba(245, 197, 24, 0)); }
+              50% { filter: drop-shadow(0 0 14px rgba(245, 197, 24, 0.8)); }
             }
 
             @keyframes fadeTagline {
@@ -186,17 +186,17 @@ export default function KushwahaLogo({ width = 220, height = 80 }) {
         <polygon points="100,10 260,10 260,40 205,110 155,110 100,40" fill="#1a1a2e"></polygon>
         <g clipPath="url(#hopper-clip)">
           <polygon points="105,15 255,15 255,38 202,108 158,108 105,38" fill="#0d0d18"></polygon>
-          <ellipse cx="0" cy="0" rx="3.5" ry="2" fill="#88ddff" className="pellet-0"></ellipse>
-          <ellipse cx="0" cy="0" rx="3.5" ry="2" fill="#88ddff" className="pellet-1"></ellipse>
-          <ellipse cx="0" cy="0" rx="3.5" ry="2" fill="#88ddff" className="pellet-2"></ellipse>
-          <ellipse cx="0" cy="0" rx="3.5" ry="2" fill="#88ddff" className="pellet-3"></ellipse>
-          <ellipse cx="0" cy="0" rx="3.5" ry="2" fill="#88ddff" className="pellet-4"></ellipse>
-          <ellipse cx="0" cy="0" rx="3.5" ry="2" fill="#88ddff" className="pellet-5"></ellipse>
-          <ellipse cx="0" cy="0" rx="3.5" ry="2" fill="#88ddff" className="pellet-6"></ellipse>
-          <ellipse cx="0" cy="0" rx="3.5" ry="2" fill="#88ddff" className="pellet-7"></ellipse>
+          <ellipse cx="0" cy="0" rx="3.5" ry="2" fill="#F5C518" className="pellet-0"></ellipse>
+          <ellipse cx="0" cy="0" rx="3.5" ry="2" fill="#F5C518" className="pellet-1"></ellipse>
+          <ellipse cx="0" cy="0" rx="3.5" ry="2" fill="#F5C518" className="pellet-2"></ellipse>
+          <ellipse cx="0" cy="0" rx="3.5" ry="2" fill="#F5C518" className="pellet-3"></ellipse>
+          <ellipse cx="0" cy="0" rx="3.5" ry="2" fill="#F5C518" className="pellet-4"></ellipse>
+          <ellipse cx="0" cy="0" rx="3.5" ry="2" fill="#F5C518" className="pellet-5"></ellipse>
+          <ellipse cx="0" cy="0" rx="3.5" ry="2" fill="#F5C518" className="pellet-6"></ellipse>
+          <ellipse cx="0" cy="0" rx="3.5" ry="2" fill="#F5C518" className="pellet-7"></ellipse>
           <rect x="50" y="0" width="200" height="150" fill="url(#glint-grad)" className="hopper-shimmer"></rect>
         </g>
-        <rect x="165" y="55" width="30" height="35" rx="3" fill="#00aaff" opacity="0.25" stroke="#4a4a5a" strokeWidth="2"></rect>
+        <rect x="165" y="55" width="30" height="35" rx="3" fill="#F5C518" opacity="0.25" stroke="#4a4a5a" strokeWidth="2"></rect>
         <rect x="167" y="57" width="26" height="15" rx="1" fill="#ffffff" opacity="0.1"></rect>
         <polygon points="100,10 260,10 260,40 205,110 155,110 100,40" fill="transparent" stroke="url(#steel-highlight)" strokeWidth="3" opacity="0.9"></polygon>
         <polygon points="95,5 265,5 260,10 100,10" fill="#a0a0a0"></polygon>
@@ -219,10 +219,10 @@ export default function KushwahaLogo({ width = 220, height = 80 }) {
             <circle cx="72" cy="272" r="3" fill="#9090a8"></circle>
             <circle cx="50" cy="150" r="24" fill="#1a1a2e" stroke="#4a4a5a" strokeWidth="2"></circle>
             <circle cx="50" cy="150" r="18" fill="#3a3a4a"></circle>
-            <circle cx="50" cy="150" r="6" fill="#88ddff" opacity="0.8"></circle>
+            <circle cx="50" cy="150" r="6" fill="#F5C518" opacity="0.8"></circle>
             <circle cx="50" cy="210" r="24" fill="#1a1a2e" stroke="#4a4a5a" strokeWidth="2"></circle>
             <circle cx="50" cy="210" r="18" fill="#3a3a4a"></circle>
-            <circle cx="50" cy="210" r="6" fill="#88ddff" opacity="0.8"></circle>
+            <circle cx="50" cy="210" r="6" fill="#F5C518" opacity="0.8"></circle>
           </g>
           <path d="M 80 120 L 120 120 L 120 180 L 80 180 Z" fill="url(#screw-grad-top)"></path>
           <ellipse cx="80" cy="150" rx="6" ry="30" fill="#1a1a28"></ellipse>
@@ -270,10 +270,10 @@ export default function KushwahaLogo({ width = 220, height = 80 }) {
       <circle cx="680" cy="105" r="4" fill="#0d0d18"></circle>
       <circle cx="680" cy="245" r="4" fill="#0d0d18"></circle>
       <g transform="translate(80, 150)">
-        <circle cx="0" cy="0" r="10" fill="none" stroke="#00aaff" strokeWidth="2.5" strokeDasharray="15 10" className="arrow-indicator"></circle>
+        <circle cx="0" cy="0" r="10" fill="none" stroke="#F5C518" strokeWidth="2.5" strokeDasharray="15 10" className="arrow-indicator"></circle>
       </g>
       <g transform="translate(80, 210)">
-        <circle cx="0" cy="0" r="10" fill="none" stroke="#00aaff" strokeWidth="2.5" strokeDasharray="15 10" className="arrow-indicator"></circle>
+        <circle cx="0" cy="0" r="10" fill="none" stroke="#F5C518" strokeWidth="2.5" strokeDasharray="15 10" className="arrow-indicator"></circle>
       </g>
       <g transform="translate(-503, -242) scale(1.6)">
         <g className="name-group">
@@ -292,7 +292,7 @@ export default function KushwahaLogo({ width = 220, height = 80 }) {
           <text x="772" y="370" className="extrude-letter text-title" style={{ animationDelay: '2.2s' }}>P</text>
         </g>
         <text x="595.5" y="405" className="text-tagline fader" textAnchor="middle">Precision Twin Screw &amp; Barrel Solutions</text>
-        <rect x="385.5" y="420" width="420" height="4" fill="#00aaff" rx="2" className="accent-line"></rect>
+        <rect x="385.5" y="420" width="420" height="4" fill="#F5C518" rx="2" className="accent-line"></rect>
       </g>
     </svg>
   );
