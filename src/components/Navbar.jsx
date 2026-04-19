@@ -58,8 +58,8 @@ export default function Navbar() {
             >
               {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
             </button>
-            <a href={`tel:${COMPANY.phone}`} className="hidden lg:flex items-center gap-2 text-sm text-gray-600 dark:text-brand-muted hover:text-gray-900 dark:hover:text-brand-light transition-colors font-mono">
-              <Phone size={16} className="text-brand-accent" />
+            <a href={`tel:${COMPANY.phone}`} className="hidden lg:flex items-center gap-2 text-sm text-gray-600 dark:text-brand-muted hover:text-gray-900 dark:hover:text-brand-light transition-colors font-mono whitespace-nowrap">
+              <Phone size={16} className="text-brand-accent flex-shrink-0" />
               {COMPANY.phone}
             </a>
             
