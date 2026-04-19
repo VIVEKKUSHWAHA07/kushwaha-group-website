@@ -50,14 +50,7 @@ export default function Navbar() {
           </nav>
 
           {/* Right Side */}
-          <div className="flex items-center gap-6">
-            <button
-              onClick={toggleTheme}
-              className="p-2 text-gray-600 hover:text-brand-accent dark:text-brand-muted dark:hover:text-brand-accent transition-colors"
-              aria-label="Toggle theme"
-            >
-              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
+          <div className="flex items-center gap-4 md:gap-6">
             <a href={`tel:${COMPANY.phone}`} className="hidden lg:flex items-center gap-2 text-sm text-gray-600 dark:text-brand-muted hover:text-gray-900 dark:hover:text-brand-light transition-colors font-mono whitespace-nowrap">
               <Phone size={16} className="text-brand-accent flex-shrink-0" />
               {COMPANY.phone}
@@ -70,12 +63,22 @@ export default function Navbar() {
               Request Quote
             </button>
 
-            <button 
-              className="md:hidden p-2 text-gray-900 dark:text-brand-light hover:text-brand-accent transition-colors" 
-              onClick={() => setMenuOpen(!menuOpen)}
-            >
-              {menuOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={toggleTheme}
+                className="p-2 text-gray-600 hover:text-brand-accent dark:text-brand-muted dark:hover:text-brand-accent transition-colors rounded-full hover:bg-gray-100 dark:hover:bg-brand-steel"
+                aria-label="Toggle theme"
+              >
+                {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+              </button>
+              
+              <button 
+                className="md:hidden p-2 text-gray-900 dark:text-brand-light hover:text-brand-accent transition-colors" 
+                onClick={() => setMenuOpen(!menuOpen)}
+              >
+                {menuOpen ? <X size={28} /> : <Menu size={28} />}
+              </button>
+            </div>
           </div>
         </div>
 
