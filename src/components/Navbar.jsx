@@ -33,51 +33,54 @@ export default function Navbar() {
             </div>
           </NavLink>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex gap-6 items-center">
-            {navLinks.map(link => (
-              <NavLink
-                key={link.to}
-                to={link.to}
-                end={link.to === '/'}
-                className={({ isActive }) => 
-                  `text-sm transition-colors ${isActive ? 'text-brand-accent font-semibold' : 'text-brand-muted hover:text-brand-accent'}`
-                }
-              >
-                {link.label}
-              </NavLink>
-            ))}
-          </nav>
+          {/* Navigation and Actions Group */}
+          <div className="flex items-center gap-6 lg:gap-8">
+            {/* Desktop Nav */}
+            <nav className="hidden md:flex gap-6 items-center">
+              {navLinks.map(link => (
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  end={link.to === '/'}
+                  className={({ isActive }) => 
+                    `text-sm transition-colors ${isActive ? 'text-brand-accent font-semibold' : 'text-brand-muted hover:text-brand-accent'}`
+                  }
+                >
+                  {link.label}
+                </NavLink>
+              ))}
+            </nav>
 
-          {/* Right Side */}
-          <div className="flex items-center gap-4 md:gap-6">
-            <a href={`tel:${COMPANY.phone}`} className="hidden lg:flex items-center gap-2 text-sm text-gray-600 dark:text-brand-muted hover:text-gray-900 dark:hover:text-brand-light transition-colors font-mono whitespace-nowrap">
-              <Phone size={16} className="text-brand-accent flex-shrink-0" />
-              {COMPANY.phone}
-            </a>
-            
-            <button 
-              className="bg-brand-accent text-brand-dark font-semibold px-6 py-2.5 rounded-lg hover:bg-brand-gold active:scale-95 transition-all duration-200 text-sm hidden md:block whitespace-nowrap" 
-              onClick={() => setQuoteOpen(true)}
-            >
-              Request Quote
-            </button>
-
-            <div className="flex items-center gap-2">
-              <button
-                onClick={toggleTheme}
-                className="p-2 text-gray-600 hover:text-brand-accent dark:text-brand-muted dark:hover:text-brand-accent transition-colors rounded-full hover:bg-gray-100 dark:hover:bg-brand-steel"
-                aria-label="Toggle theme"
-              >
-                {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-              </button>
+            {/* Right Side */}
+            <div className="flex items-center gap-4 md:gap-6">
+              <a href={`tel:${COMPANY.phone}`} className="hidden lg:flex items-center gap-2 text-sm text-gray-600 dark:text-brand-muted hover:text-gray-900 dark:hover:text-brand-light transition-colors font-mono whitespace-nowrap">
+                <Phone size={16} className="text-brand-accent flex-shrink-0" />
+                {COMPANY.phone}
+              </a>
               
               <button 
-                className="md:hidden p-2 text-gray-900 dark:text-brand-light hover:text-brand-accent transition-colors" 
-                onClick={() => setMenuOpen(!menuOpen)}
+                className="bg-brand-accent text-brand-dark font-semibold px-6 py-2.5 rounded-lg hover:bg-brand-gold active:scale-95 transition-all duration-200 text-sm hidden md:block whitespace-nowrap" 
+                onClick={() => setQuoteOpen(true)}
               >
-                {menuOpen ? <X size={28} /> : <Menu size={28} />}
+                Request Quote
               </button>
+
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={toggleTheme}
+                  className="p-2 text-gray-600 hover:text-brand-accent dark:text-brand-muted dark:hover:text-brand-accent transition-colors rounded-full hover:bg-gray-100 dark:hover:bg-brand-steel"
+                  aria-label="Toggle theme"
+                >
+                  {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+                </button>
+                
+                <button 
+                  className="md:hidden p-2 text-gray-900 dark:text-brand-light hover:text-brand-accent transition-colors" 
+                  onClick={() => setMenuOpen(!menuOpen)}
+                >
+                  {menuOpen ? <X size={28} /> : <Menu size={28} />}
+                </button>
+              </div>
             </div>
           </div>
         </div>
