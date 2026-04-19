@@ -57,7 +57,7 @@ export default function Navbar() {
             </a>
             
             <button 
-              className="bg-brand-accent text-brand-dark font-semibold px-6 py-2.5 rounded-lg hover:bg-brand-gold active:scale-95 transition-all duration-200 text-sm hidden md:block" 
+              className="bg-brand-accent text-brand-dark font-semibold px-6 py-2.5 rounded-lg hover:bg-brand-gold active:scale-95 transition-all duration-200 text-sm hidden md:block whitespace-nowrap" 
               onClick={() => setQuoteOpen(true)}
             >
               Request Quote
