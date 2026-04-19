@@ -42,9 +42,9 @@ export default function Navbar() {
                   key={link.to}
                   to={link.to}
                   end={link.to === '/'}
-                  className={({ isActive }) => 
-                    `text-sm transition-colors ${isActive ? 'text-brand-accent font-semibold' : 'text-brand-muted hover:text-brand-accent'}`
-                  }
+                className={({ isActive }) => 
+                  `text-sm transition-colors relative pb-1 ${isActive ? 'text-brand-accent font-semibold after:content-[""] after:absolute after:left-0 after:bottom-0 after:w-full after:h-0.5 after:bg-brand-accent' : 'text-brand-muted hover:text-brand-accent'}`
+                }
                 >
                   {link.label}
                 </NavLink>
