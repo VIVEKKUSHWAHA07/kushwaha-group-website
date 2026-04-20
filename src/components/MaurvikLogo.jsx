@@ -7,10 +7,10 @@ export default function MaurvikLogo({ width = 220, height = 80, className = "" }
             
             .text-title {
               font-family: 'Orbitron', sans-serif;
-              font-size: 38px;
+              font-size: 34px;
               fill: #ffffff;
               font-weight: 700;
-              letter-spacing: 3px;
+              letter-spacing: 2px;
             }
             .text-tagline {
               font-family: 'Rajdhani', sans-serif;
@@ -80,7 +80,7 @@ export default function MaurvikLogo({ width = 220, height = 80, className = "" }
             .extrude-letter { opacity: 0; animation: letterExtrude 0.3s ease-out forwards; }
             .name-group { animation: pulseGlow 3s ease-in-out infinite; animation-delay: 2.6s; }
             .fader { opacity: 0; animation: fadeTagline 0.8s ease-out forwards; animation-delay: 2.8s; }
-            .accent-line { transform-origin: 620px 420px; transform: scaleX(0); animation: scaleLine 0.6s ease-out forwards; animation-delay: 3.2s; }
+            .accent-line { transform-origin: 603px 420px; transform: scaleX(0); animation: scaleLine 0.6s ease-out forwards; animation-delay: 3.2s; }
 
             @keyframes fall-0 { 0% { transform: translate(130px, 25px) rotate(0deg); opacity: 0; } 10% { opacity: 0.9; } 80% { opacity: 0.9; } 100% { transform: translate(165px, 120px) rotate(30deg); opacity: 0; } }
             .pellet-0 { animation: fall-0 1.4s ease-in infinite; animation-delay: 0.1s; opacity: 0; }
@@ -275,30 +275,30 @@ export default function MaurvikLogo({ width = 220, height = 80, className = "" }
       <g transform="translate(80, 210)">
         <circle cx="0" cy="0" r="10" fill="none" stroke="#F5C518" strokeWidth="2.5" strokeDasharray="15 10" className="arrow-indicator"></circle>
       </g>
-      <g transform="translate(-440, -242) scale(1.6)">
+      <g transform="translate(-540, -242) scale(1.6)">
         <g className="name-group">
-          {/* MAURVIK */}
+          {/* M A U R V I K */}
           <text x="390" y="370" className="extrude-letter text-title" style={{ animationDelay: '1s' }}>M</text>
-          <text x="422" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.1s' }}>A</text>
-          <text x="451" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.2s' }}>U</text>
-          <text x="481" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.3s' }}>R</text>
-          <text x="510" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.4s' }}>V</text>
-          <text x="539" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.5s' }}>I</text>
-          <text x="552" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.6s' }}>K</text>
-          {/* gap */}
-          <text x="598" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.7s' }}>I</text>
-          <text x="611" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.8s' }}>N</text>
-          <text x="641" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.9s' }}>D</text>
-          <text x="671" y="370" className="extrude-letter text-title" style={{ animationDelay: '2s' }}>U</text>
-          <text x="701" y="370" className="extrude-letter text-title" style={{ animationDelay: '2.1s' }}>S</text>
-          <text x="728" y="370" className="extrude-letter text-title" style={{ animationDelay: '2.2s' }}>T</text>
-          <text x="750" y="370" className="extrude-letter text-title" style={{ animationDelay: '2.3s' }}>R</text>
-          <text x="779" y="370" className="extrude-letter text-title" style={{ animationDelay: '2.4s' }}>I</text>
-          <text x="792" y="370" className="extrude-letter text-title" style={{ animationDelay: '2.5s' }}>E</text>
-          <text x="820" y="370" className="extrude-letter text-title" style={{ animationDelay: '2.6s' }}>S</text>
+          <text x="419" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.1s' }}>A</text>
+          <text x="446" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.2s' }}>U</text>
+          <text x="473" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.3s' }}>R</text>
+          <text x="499" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.4s' }}>V</text>
+          <text x="525" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.5s' }}>I</text>
+          <text x="537" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.6s' }}>K</text>
+          {/* I N D U S T R I E S */}
+          <text x="578" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.7s' }}>I</text>
+          <text x="590" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.8s' }}>N</text>
+          <text x="617" y="370" className="extrude-letter text-title" style={{ animationDelay: '1.9s' }}>D</text>
+          <text x="644" y="370" className="extrude-letter text-title" style={{ animationDelay: '2s' }}>U</text>
+          <text x="671" y="370" className="extrude-letter text-title" style={{ animationDelay: '2.1s' }}>S</text>
+          <text x="696" y="370" className="extrude-letter text-title" style={{ animationDelay: '2.2s' }}>T</text>
+          <text x="716" y="370" className="extrude-letter text-title" style={{ animationDelay: '2.3s' }}>R</text>
+          <text x="742" y="370" className="extrude-letter text-title" style={{ animationDelay: '2.4s' }}>I</text>
+          <text x="754" y="370" className="extrude-letter text-title" style={{ animationDelay: '2.5s' }}>E</text>
+          <text x="779" y="370" className="extrude-letter text-title" style={{ animationDelay: '2.6s' }}>S</text>
         </g>
-        <text x="620" y="405" className="text-tagline fader" textAnchor="middle">Precision Twin Screw &amp; Barrel Solutions</text>
-        <rect x="385.5" y="420" width="470" height="4" fill="#F5C518" rx="2" className="accent-line"></rect>
+        <text x="603" y="405" className="text-tagline fader" textAnchor="middle">Precision Twin Screw &amp; Barrel Solutions</text>
+        <rect x="385.5" y="420" width="435" height="4" fill="#F5C518" rx="2" className="accent-line"></rect>
       </g>
     </svg>
   );
