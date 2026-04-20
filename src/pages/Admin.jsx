@@ -24,7 +24,7 @@ export default function Admin() {
       <header className="bg-white dark:bg-brand-steel border-b border-gray-200 dark:border-brand-border px-6 py-4 sticky top-0 z-50 transition-colors shadow-sm dark:shadow-none">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0">
           <h1 className="font-display text-xl sm:text-2xl text-gray-900 dark:text-white uppercase tracking-wider m-0">
-            KUSHWAHA GROUP — Admin Panel
+            MAURVIK INDUSTRIES — Admin Panel
           </h1>
           
           <div className="flex items-center gap-4 sm:gap-6 w-full sm:w-auto justify-between sm:justify-end">

@@ -1,4 +1,4 @@
-export default function KushwahaLogo({ width = 220, height = 80, className = "" }) {
+export default function MaurvikLogo({ width = 220, height = 80, className = "" }) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460" width={width} height={height} className={className} preserveAspectRatio="xMidYMid meet">
       <defs>

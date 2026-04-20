@@ -49,7 +49,7 @@ export default function About() {
             <div className="w-full md:w-1/2 md:text-right md:pr-12">
               <div className="font-display text-4xl text-brand-accent mb-2">Foundation</div>
               <p className="text-gray-600 dark:text-brand-muted leading-relaxed">
-                Kushwaha Group was founded with a singular mission — to deliver precision-engineered screw and barrel solutions to India's plastics processing industry.
+                Maurvik Industries was founded with a singular mission — to deliver precision-engineered screw and barrel solutions to India's plastics processing industry.
               </p>
             </div>
             <div className="hidden md:flex absolute left-1/2 -ml-3 w-6 h-6 rounded-full bg-white dark:bg-brand-dark border-4 border-brand-accent"></div>

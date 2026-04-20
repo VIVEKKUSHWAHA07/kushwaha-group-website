@@ -66,13 +66,13 @@ serve(async (req) => {
       method: "POST",
       headers: { "Authorization": `Bearer ${resendKey}`, "Content-Type": "application/json" },
       body: JSON.stringify({
-        from: "Kushwaha Group Website <onboarding@resend.dev>",
+        from: "Maurvik Industries Website <onboarding@resend.dev>",
         to: [ADMIN_EMAIL],
         subject: `New Quote Request - ${clientName} from ${companyName || "Unknown"}`,
         html: `<div style="font-family:Arial;max-width:600px;margin:auto;">
           <div style="background:#0A1628;padding:24px;border-radius:8px 8px 0 0;">
             <h2 style="color:#E07B00;margin:0;">New Quote Request</h2>
-            <p style="color:#fff;margin:4px 0 0;">Kushwaha Group Website</p></div>
+            <p style="color:#fff;margin:4px 0 0;">Maurvik Industries Website</p></div>
           <table style="width:100%;border-collapse:collapse;background:#fff;">
             <tr><td style="padding:12px;border-bottom:1px solid #eee;font-weight:bold;">Name</td>
                 <td style="padding:12px;border-bottom:1px solid #eee;">${clientName}</td></tr>
@@ -112,9 +112,9 @@ serve(async (req) => {
           method: "POST",
           headers: { "Authorization": `Bearer ${resendKey}`, "Content-Type": "application/json" },
           body: JSON.stringify({
-            from: "Kushwaha Group <noreply@kushwahagroup.com>",
+            from: "Maurvik Industries <noreply@maurvikindustries.com>",
             to: [email],
-            subject: "We received your enquiry — Kushwaha Group",
+            subject: "We received your enquiry — Maurvik Industries",
             html: `<div style="font-family:Arial;max-width:600px;margin:auto;">
               <p>Dear ${clientName},</p>
               <p>Thank you for your enquiry regarding ${productInterest || "our products"}.</p>
@@ -122,8 +122,8 @@ serve(async (req) => {
               <p>Our engineering team will respond within 1-2 business days.</p>
               <br/>
               <p>Best regards,</p>
-              <p><strong>Kushwaha Group</strong><br/>
-              <a href="mailto:info@kushwahagroup.com">info@kushwahagroup.com</a></p>
+              <p><strong>Maurvik Industries</strong><br/>
+              <a href="mailto:info@maurvikindustries.com">info@maurvikindustries.com</a></p>
             </div>`,
           }),
         });

@@ -1,12 +1,12 @@
 export const COMPANY = {
-  name: 'Kushwaha Group',
+  name: 'Maurvik Industries',
   tagline: 'Precision Engineered Screw & Barrel Solutions',
   phone: '+91 93162 78034',
   whatsapp: '+919316278034',
   email: 'kushwahavivek6265@gmail.com',
   location: 'Ahmedabad, Gujarat, India',
   address: 'Shade No 1, Panchratna Alpha Industrial Cottage, GIDC Vatwa, Ahmedabad, Gujarat, India',
-  whatsappMsg: "Hello Kushwaha Group! 👋 I visited your website and I'm interested in your precision screw and barrel manufacturing services. Could we discuss my requirements?",
+  whatsappMsg: "Hello Maurvik Industries! 👋 I visited your website and I'm interested in your precision screw and barrel manufacturing services. Could we discuss my requirements?",
   googleMapsEmbed: "https://maps.google.com/maps?q=22.94563,72.63817&t=&z=15&ie=UTF8&iwloc=&output=embed"
 }
 

@@ -4,7 +4,7 @@ import { Menu, X, Phone, Sun, Moon } from 'lucide-react'
 import { COMPANY } from '../lib/constants'
 import QuoteModal from './QuoteModal'
 import { useTheme } from '../context/ThemeContext'
-import KushwahaLogo from './KushwahaLogo'
+import MaurvikLogo from './MaurvikLogo'
 
 const navLinks = [
   { to: '/', label: 'Home' },
@@ -29,7 +29,7 @@ export default function Navbar() {
           {/* Brand */}
           <NavLink to="/" className="flex items-center gap-3 flex-shrink-0 group active:scale-95 transition-transform">
             <div className="flex items-center">
-              <KushwahaLogo className="w-56 md:w-[320px] h-auto" width="100%" height="100%" />
+              <MaurvikLogo className="w-56 md:w-[320px] h-auto" width="100%" height="100%" />
             </div>
           </NavLink>
 

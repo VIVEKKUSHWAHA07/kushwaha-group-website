@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Phone, Mail, MapPin } from 'lucide-react'
 import { COMPANY, NAV_LINKS } from '../lib/constants'
-import KushwahaLogo from './KushwahaLogo'
+import MaurvikLogo from './MaurvikLogo'
 
 export default function Footer() {
   return (
@@ -11,7 +11,7 @@ export default function Footer() {
           {/* Company Info */}
           <div>
             <Link to="/" className="flex items-center gap-4 group mb-6 active:scale-95 transition-transform w-fit">
-              <KushwahaLogo className="w-64 md:w-[320px] h-auto" width="100%" height="100%" />
+              <MaurvikLogo className="w-64 md:w-[320px] h-auto" width="100%" height="100%" />
             </Link>
             <p className="text-gray-600 dark:text-brand-muted leading-relaxed mb-8">
               {COMPANY.subTagline}

@@ -17,21 +17,21 @@ import NotFound from './pages/NotFound'
 import AdminRoute from './components/AdminRoute'
 
 const pageTitles = {
-  '/': 'Kushwaha Group — Screw & Barrel Manufacturers',
-  '/products': 'Products — Kushwaha Group',
-  '/about': 'About Us — Kushwaha Group',
-  '/industries': 'Industries We Serve — Kushwaha Group',
-  '/capabilities': 'Manufacturing Capabilities — Kushwaha Group',
-  '/quality': 'Quality & Process — Kushwaha Group',
-  '/contact': 'Contact Us — Kushwaha Group',
-  '/admin': 'Admin — Kushwaha Group',
+  '/': 'Maurvik Industries — Screw & Barrel Manufacturers',
+  '/products': 'Products — Maurvik Industries',
+  '/about': 'About Us — Maurvik Industries',
+  '/industries': 'Industries We Serve — Maurvik Industries',
+  '/capabilities': 'Manufacturing Capabilities — Maurvik Industries',
+  '/quality': 'Quality & Process — Maurvik Industries',
+  '/contact': 'Contact Us — Maurvik Industries',
+  '/admin': 'Admin — Maurvik Industries',
 }
 
 function ScrollToTop() {
   const { pathname } = useLocation()
   useEffect(() => {
     window.scrollTo(0, 0)
-    document.title = pageTitles[pathname] || 'Kushwaha Group'
+    document.title = pageTitles[pathname] || 'Maurvik Industries'
   }, [pathname])
   return null
 }
