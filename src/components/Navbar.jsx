@@ -1,10 +1,15 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Menu, X, Phone, Sun, Moon } from 'lucide-react'
 import { COMPANY } from '../lib/constants'
 import QuoteModal from './QuoteModal'
 import { useTheme } from '../context/ThemeContext'
 import MaurvikLogo from './MaurvikLogo'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
+
+gsap.registerPlugin(useGSAP, ScrollTrigger)
 
 const navLinks = [
   { to: '/', label: 'Home' },
@@ -20,11 +25,25 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [quoteOpen, setQuoteOpen] = useState(false)
   const { theme, toggleTheme } = useTheme()
+  const navRef = useRef(null)
+
+  /* Entrance: slides down from top */
+  useGSAP(() => {
+    gsap.from(navRef.current, {
+      yPercent: -100, opacity: 0, duration: 0.8, ease: 'power3.out',
+    })
+    /* Scroll-shrink: tighten padding on scroll */
+    ScrollTrigger.create({
+      start: 'top -60',
+      onEnter:     () => gsap.to('.nav-inner', { paddingTop: '0.5rem', paddingBottom: '0.5rem', duration: 0.3, ease: 'power2.out' }),
+      onLeaveBack: () => gsap.to('.nav-inner', { paddingTop: '1rem',   paddingBottom: '1rem',   duration: 0.3, ease: 'power2.out' }),
+    })
+  }, { scope: navRef })
 
   return (
     <>
-      <header className="sticky top-0 z-50 w-full bg-white/90 dark:bg-brand-dark/90 backdrop-blur border-b border-gray-200 dark:border-brand-border transition-colors">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <header ref={navRef} className="sticky top-0 z-50 w-full bg-white/90 dark:bg-brand-dark/90 backdrop-blur border-b border-gray-200 dark:border-brand-border transition-colors">
+        <div className="nav-inner max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
           {/* Brand */}
           <NavLink to="/" className="flex items-center gap-3 flex-shrink-0 group active:scale-95 transition-transform">
